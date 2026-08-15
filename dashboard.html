@@ -1,0 +1,1889 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SkillBridge career readiness dashboard">
+  <title>Dashboard | SkillBridge</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =====================================================
+       TOP RIGHT PROFILE DROPDOWN
+    ====================================================== */
+
+    .profile-dropdown-wrapper {
+      position: relative;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+
+      width: 245px;
+
+      padding: 16px;
+
+      background: #ffffff;
+
+      border: 1px solid #e4e7ef;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 15px 35px rgba(31, 40, 73, 0.14);
+
+      z-index: 1000;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translateY(-8px);
+
+      transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+    }
+
+    .profile-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+
+      transform: translateY(0);
+    }
+
+    .profile-dropdown-header {
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      padding-bottom: 13px;
+
+      border-bottom: 1px solid #eceef3;
+    }
+
+    .profile-dropdown-avatar {
+      width: 42px;
+      height: 42px;
+
+      flex: 0 0 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: #5b50d6;
+
+      color: #ffffff;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .profile-dropdown-header div {
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 3px;
+    }
+
+    .profile-dropdown-header strong {
+      color: #17233f;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .profile-dropdown-header small {
+      color: #8b96aa;
+
+      font-size: 9px;
+    }
+
+    .profile-dropdown-details {
+      padding-top: 12px;
+    }
+
+    .profile-detail {
+      display: flex;
+      align-items: flex-start;
+
+      gap: 10px;
+
+      padding: 8px 0;
+    }
+
+    .profile-detail-icon {
+      width: 27px;
+      height: 27px;
+
+      flex: 0 0 27px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 8px;
+
+      background: #f1efff;
+
+      color: #5b50d6;
+
+      font-size: 11px;
+    }
+
+    .profile-detail-content {
+      display: flex;
+      flex-direction: column;
+
+      gap: 2px;
+
+      min-width: 0;
+    }
+
+    .profile-detail-content span {
+      color: #9aa3b4;
+
+      font-size: 8px;
+      font-weight: 800;
+
+      letter-spacing: .5px;
+
+      text-transform: uppercase;
+    }
+
+    .profile-detail-content strong {
+      color: #26324b;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      word-break: break-word;
+    }
+
+    .profile-dropdown-status {
+      display: flex;
+      align-items: center;
+
+      gap: 6px;
+
+      margin-top: 7px;
+
+      padding: 9px 10px;
+
+      border-radius: 9px;
+
+      background: #f1faf6;
+    }
+
+    .profile-dropdown-status-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #42ad78;
+    }
+
+    .profile-dropdown-status span {
+      color: #36936a;
+
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       DROPDOWN MOBILE
+    ====================================================== */
+
+    @media (max-width: 450px) {
+
+      .profile-dropdown {
+        right: -5px;
+
+        width: 225px;
+      }
+
+    }
+
+
+    /* =====================================================
+       FULL REPORT MODAL
+    ====================================================== */
+
+    .report-modal[hidden] {
+      display: none;
+    }
+
+    .report-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+
+      display: grid;
+      place-items: center;
+
+      padding: 20px;
+
+      background: rgba(23, 33, 59, .5);
+    }
+
+    .report-card {
+      position: relative;
+
+      width: min(100%, 560px);
+      max-height: 85vh;
+
+      overflow-y: auto;
+
+      padding: 30px;
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+      box-shadow: 0 25px 60px rgba(20, 27, 55, .25);
+    }
+
+    .report-close {
+      position: absolute;
+      right: 14px;
+      top: 12px;
+
+      border: 0;
+      background: transparent;
+
+      color: #7c899e;
+      font-size: 24px;
+      line-height: 1;
+
+      cursor: pointer;
+    }
+
+    .report-head p.eyebrow {
+      margin: 0 0 6px;
+      color: #7a6ff0;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .report-head h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      color: #17233f;
+    }
+
+    .report-head p.report-sub {
+      margin: 0 0 20px;
+      color: #6e7892;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .report-overall {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 22px;
+      padding: 16px 18px;
+
+      border-radius: 12px;
+
+      background: linear-gradient(110deg, #3e358d, #6659d7);
+      color: #fff;
+    }
+
+    .report-overall strong {
+      display: block;
+      font-size: 26px;
+    }
+
+    .report-overall small {
+      color: #dfdcff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    .report-metric {
+      padding: 16px 0;
+      border-top: 1px solid #eef0f5;
+    }
+
+    .report-metric:first-of-type {
+      border-top: 0;
+    }
+
+    .report-metric-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 6px;
+    }
+
+    .report-metric-top h3 {
+      margin: 0;
+      font-size: 13px;
+      color: #1e293f;
+    }
+
+    .report-badge {
+      padding: 4px 9px;
+      border-radius: 20px;
+
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+
+    .report-badge.low {
+      background: #fdeceb;
+      color: #d76c58;
+    }
+
+    .report-badge.ok {
+      background: #e7f6ef;
+      color: #3b9a7f;
+    }
+
+    .report-metric-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 8px;
+    }
+
+    .report-metric-bar .tiny-progress {
+      flex: 1;
+      height: 6px;
+      border-radius: 4px;
+      background: #eef0f6;
+      overflow: hidden;
+    }
+
+    .report-metric-bar .tiny-progress span {
+      display: block;
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .report-metric-bar strong {
+      min-width: 34px;
+      text-align: right;
+      font-size: 12px;
+      color: #1e293f;
+    }
+
+    .report-metric p.practice-msg {
+      margin: 0;
+      padding: 10px 12px;
+
+      border-radius: 9px;
+
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .report-metric p.practice-msg.low {
+      background: #fff6f4;
+      color: #a8503d;
+    }
+
+    .report-metric p.practice-msg.ok {
+      background: #f4faf8;
+      color: #2f7d63;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .report-actions button {
+      flex: 1;
+    }
+
+    @media (max-width: 480px) {
+      .report-card {
+        padding: 22px;
+      }
+    }
+  </style>
+
+</head>
+
+
+<body class="dashboard-page">
+
+  <div class="app-shell">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <a class="brand side-brand" href="dashboard.html">
+
+        <span class="brand-mark">
+          S
+        </span>
+
+        SkillBridge
+
+      </a>
+
+
+      <nav aria-label="Main navigation">
+
+        <p class="nav-label">
+          MENU
+        </p>
+
+
+        <a
+          class="nav-item active"
+          href="dashboard.html">
+
+          <span>▦</span>
+
+          Dashboard
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="profile.html">
+
+          <span>◉</span>
+
+          Profile
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="courses.html">
+
+          <span>▤</span>
+
+          Courses
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="mentors.html">
+
+          <span>♙</span>
+
+          Mentors
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="targets.html">
+
+          <span>◎</span>
+
+          Targets
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="goals.html">
+
+          <span>◷</span>
+
+          Short Term Goals
+
+        </a>
+
+
+        <p class="nav-label second">
+          ACCOUNT
+        </p>
+
+
+        <a
+          class="nav-item"
+          href="settings.html">
+
+          <span>⚙</span>
+
+          Settings
+
+        </a>
+
+      </nav>
+
+
+      <!-- SIDEBAR HELP -->
+
+      <div class="sidebar-help">
+
+        <span>
+          ✦
+        </span>
+
+        <p>
+          <strong>Need a hand?</strong>
+          Explore your support options.
+        </p>
+
+        <a
+          class="text-button"
+          href="mentors.html">
+
+          Get support →
+
+        </a>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- =====================================================
+           TOP BAR
+      ====================================================== -->
+
+      <header class="topbar">
+
+
+        <button
+          class="menu-button"
+          id="menuButton"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false">
+
+          ☰
+
+        </button>
+
+
+        <div class="mobile-brand">
+          SkillBridge
+        </div>
+
+
+        <div class="top-actions">
+
+
+          <!-- NOTIFICATION -->
+
+          <button
+            class="notification"
+            type="button"
+            aria-label="Notifications">
+
+            ♢
+
+            <i></i>
+
+          </button>
+
+
+          <!-- =================================================
+               PROFILE DROPDOWN WRAPPER
+          ================================================== -->
+
+          <div class="profile-dropdown-wrapper">
+
+
+            <!-- PROFILE BUTTON -->
+
+            <button
+              class="user-chip"
+              id="profileButton"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false">
+
+
+              <span
+                class="avatar"
+                id="avatarInitial">
+
+                A
+
+              </span>
+
+
+              <span>
+
+                <strong id="studentName">
+                  Student
+                </strong>
+
+                <small>
+                  Career learner
+                </small>
+
+              </span>
+
+
+              <b id="profileArrow">
+                ⌄
+              </b>
+
+
+            </button>
+
+
+            <!-- =================================================
+                 PROFILE DROPDOWN
+            ================================================== -->
+
+            <div
+              class="profile-dropdown"
+              id="profileDropdown">
+
+
+              <!-- PROFILE HEADER -->
+
+              <div class="profile-dropdown-header">
+
+                <span
+                  class="profile-dropdown-avatar"
+                  id="dropdownAvatar">
+
+                  A
+
+                </span>
+
+
+                <div>
+
+                  <strong id="dropdownName">
+                    Lakchitha A
+                  </strong>
+
+                  <small>
+                    Career learner
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <!-- USER DETAILS -->
+
+              <div class="profile-dropdown-details">
+
+
+                <!-- NAME -->
+
+                <div class="profile-detail">
+
+                  <span class="profile-detail-icon">
+                    ◉
+                  </span>
+
+                  <div class="profile-detail-content">
+
+                    <span>
+                      Name
+                    </span>
+
+                    <strong id="dropdownFullName">
+                      Lakchitha A
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="profile-detail">
+
+                  <span class="profile-detail-icon">
+                    @
+                  </span>
+
+                  <div class="profile-detail-content">
+
+                    <span>
+                      Email
+                    </span>
+
+                    <strong id="dropdownEmail">
+                      lakchitha@example.com
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="profile-detail">
+
+                  <span class="profile-detail-icon">
+                    ★
+                  </span>
+
+                  <div class="profile-detail-content">
+
+                    <span>
+                      Role
+                    </span>
+
+                    <strong>
+                      Student
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <!-- PATHWAY -->
+
+                <div class="profile-detail">
+
+                  <span class="profile-detail-icon">
+                    ◈
+                  </span>
+
+                  <div class="profile-detail-content">
+
+                    <span>
+                      Career pathway
+                    </span>
+
+                    <strong>
+                      Full-stack development
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="profile-dropdown-status">
+
+                  <span class="profile-dropdown-status-dot">
+                  </span>
+
+                  <span>
+                    Account active
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- =====================================================
+           HERO
+      ====================================================== -->
+
+      <section class="hero">
+
+
+        <div>
+
+          <p class="eyebrow accent">
+            CAREER COMMAND CENTER
+          </p>
+
+
+          <h1>
+
+            Good morning,
+
+            <span id="greetingName">
+              Student
+            </span>
+
+            <span aria-hidden="true">
+              👋
+            </span>
+
+          </h1>
+
+
+          <p>
+            Small, focused progress today moves your career forward tomorrow.
+          </p>
+
+        </div>
+
+
+        <!-- VIEW PROFILE -->
+
+        <button
+          class="outline-button"
+          type="button"
+          onclick="window.location.href='profile.html'">
+
+          View my profile
+
+          <span>
+            →
+          </span>
+
+        </button>
+
+      </section>
+
+
+      <!-- =====================================================
+           PROGRESS OVERVIEW
+      ====================================================== -->
+
+      <section
+        class="progress-overview"
+        aria-labelledby="overallTitle">
+
+
+        <div class="overall-copy">
+
+          <p class="eyebrow">
+            YOUR PROGRESS
+          </p>
+
+
+          <h2 id="overallTitle">
+            You're building momentum
+          </h2>
+
+
+          <p>
+            Keep strengthening the skills that make you interview-ready.
+          </p>
+
+
+          <div class="progress-bar">
+
+            <span id="overallBar">
+            </span>
+
+          </div>
+
+
+          <small>
+
+            <strong id="overallValue">
+              0%
+            </strong>
+
+            career readiness
+
+          </small>
+
+        </div>
+
+
+        <!-- CIRCULAR PROGRESS -->
+
+        <div
+          class="progress-orb"
+          aria-label="Overall career readiness">
+
+
+          <svg
+            viewBox="0 0 120 120"
+            role="img">
+
+
+            <circle
+              cx="60"
+              cy="60"
+              r="51"
+              class="orb-track">
+            </circle>
+
+
+            <circle
+              cx="60"
+              cy="60"
+              r="51"
+              class="orb-value"
+              id="orbCircle">
+            </circle>
+
+
+          </svg>
+
+
+          <div>
+
+            <strong id="orbValue">
+              0%
+            </strong>
+
+            <small>
+              overall
+            </small>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           READINESS SNAPSHOT
+      ====================================================== -->
+
+      <section class="section-heading">
+
+
+        <div>
+
+          <p class="eyebrow">
+            READINESS SNAPSHOT
+          </p>
+
+          <h2>
+            Where you stand today
+          </h2>
+
+        </div>
+
+
+        <!-- SEE FULL REPORT (fixed: now opens a real report with per-area
+             performance + practice guidance instead of just navigating) -->
+
+        <button
+          class="text-button"
+          type="button"
+          id="fullReportBtn">
+
+          See full report →
+
+        </button>
+
+      </section>
+
+
+      <!-- METRICS -->
+
+      <section
+        class="metric-grid"
+        id="metrics"
+        aria-label="Career readiness metrics">
+      </section>
+
+
+      <!-- =====================================================
+           LOWER DASHBOARD
+      ====================================================== -->
+
+      <section class="dashboard-grid">
+
+
+        <!-- LEFT COLUMN -->
+
+        <div>
+
+
+          <!-- AI RECOMMENDATION -->
+
+          <section
+            class="ai-card"
+            id="aiRecommendation"
+            aria-live="polite">
+          </section>
+
+
+          <!-- QUICK ACTIONS -->
+
+          <section class="quick-card">
+
+
+            <div class="section-heading compact">
+
+              <div>
+
+                <p class="eyebrow">
+                  QUICK ACTIONS
+                </p>
+
+                <h2>
+                  Keep moving
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div class="action-list">
+
+
+              <!-- CONTINUE LEARNING -->
+
+              <button
+                class="quick-action"
+                type="button"
+                onclick="window.location.href='courses.html'">
+
+
+                <span class="action-icon purple">
+                  ▤
+                </span>
+
+
+                <span>
+
+                  <strong>
+                    Continue learning
+                  </strong>
+
+                  <small>
+                    Resume your selected pathway
+                  </small>
+
+                </span>
+
+
+                <b>
+                  →
+                </b>
+
+
+              </button>
+
+
+              <!-- WEEKLY TARGET -->
+
+              <button
+                class="quick-action"
+                type="button"
+                onclick="window.location.href='targets.html'">
+
+
+                <span class="action-icon orange">
+                  ◷
+                </span>
+
+
+                <span>
+
+                  <strong>
+                    Set a weekly target
+                  </strong>
+
+                  <small>
+                    Turn progress into a habit
+                  </small>
+
+                </span>
+
+
+                <b>
+                  →
+                </b>
+
+
+              </button>
+
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- =================================================
+             MENTOR CARD
+        ================================================== -->
+
+        <section class="mentor-card">
+
+
+          <div class="section-heading compact">
+
+
+            <div>
+
+              <p class="eyebrow">
+                MENTOR CONNECTION
+              </p>
+
+              <h2>
+                Your guidance team
+              </h2>
+
+            </div>
+
+
+            <!-- SEE ALL -->
+
+            <button
+              class="text-button"
+              type="button"
+              onclick="window.location.href='mentors.html'">
+
+              See all
+
+            </button>
+
+          </div>
+
+
+          <!-- ASSIGNED MENTOR -->
+
+          <div class="assigned-mentor">
+
+
+            <span class="mentor-avatar teal">
+              RK
+            </span>
+
+
+            <div>
+
+              <small>
+                ASSIGNED MENTOR
+              </small>
+
+              <h3>
+                Riya Krishnan
+              </h3>
+
+              <p>
+                Full-stack development
+              </p>
+
+            </div>
+
+
+            <span
+              class="online-dot"
+              title="Available">
+            </span>
+
+
+          </div>
+
+
+          <p class="mentor-caption">
+            Available mentors for your pathway
+          </p>
+
+
+          <!-- MENTOR 1 -->
+
+          <div class="mentor-preview">
+
+
+            <span class="mentor-avatar gold">
+              AM
+            </span>
+
+
+            <div>
+
+              <strong>
+                Arun Menon
+              </strong>
+
+              <small>
+                Embedded systems
+              </small>
+
+            </div>
+
+
+            <button
+              class="add-mentor"
+              type="button"
+              aria-label="View Arun Menon"
+              onclick="window.location.href='mentors.html'">
+
+              +
+
+            </button>
+
+
+          </div>
+
+
+          <!-- MENTOR 2 -->
+
+          <div class="mentor-preview">
+
+
+            <span class="mentor-avatar coral">
+              PS
+            </span>
+
+
+            <div>
+
+              <strong>
+                Priya Sharma
+              </strong>
+
+              <small>
+                Interview coaching
+              </small>
+
+            </div>
+
+
+            <button
+              class="add-mentor"
+              type="button"
+              aria-label="View Priya Sharma"
+              onclick="window.location.href='mentors.html'">
+
+              +
+
+            </button>
+
+
+          </div>
+
+
+          <!-- EXPLORE MENTORS -->
+
+          <button
+            class="mentor-button"
+            type="button"
+            onclick="window.location.href='mentors.html'">
+
+            Explore mentors
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+
+        </section>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       FULL REPORT MODAL
+  ====================================================== -->
+
+  <div class="report-modal" id="reportModal" hidden>
+
+    <div class="report-card">
+
+      <button
+        class="report-close"
+        type="button"
+        id="reportCloseBtn"
+        aria-label="Close report">
+        ×
+      </button>
+
+      <div class="report-head">
+        <p class="eyebrow">FULL PERFORMANCE REPORT</p>
+        <h2>How you're really doing</h2>
+        <p class="report-sub">
+          A breakdown of each readiness signal, with what to practice next
+          if a score needs attention.
+        </p>
+      </div>
+
+      <div class="report-overall">
+        <div>
+          <small>OVERALL CAREER READINESS</small>
+          <strong id="reportOverallValue">0%</strong>
+        </div>
+      </div>
+
+      <div id="reportMetricList">
+        <!-- filled dynamically -->
+      </div>
+
+      <div class="report-actions">
+        <button class="secondary-button" type="button" id="reportCloseBtn2">
+          Close
+        </button>
+        <button class="primary-button" type="button" id="reportPracticeBtn">
+          Start practicing →
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite">
+  </div>
+
+
+  <!-- =====================================================
+       EXISTING JAVASCRIPT
+  ====================================================== -->
+
+  <script src="script.js"></script>
+  <script src="app.js"></script>
+
+
+  <!-- =====================================================
+       DASHBOARD FUNCTIONALITY
+  ====================================================== -->
+
+  <script>
+
+
+    /* =====================================================
+       PROFILE DROPDOWN
+    ====================================================== */
+
+    const profileButton =
+      document.getElementById("profileButton");
+
+    const profileDropdown =
+      document.getElementById("profileDropdown");
+
+    const profileArrow =
+      document.getElementById("profileArrow");
+
+
+    if (profileButton && profileDropdown) {
+
+      profileButton.addEventListener(
+        "click",
+        function (event) {
+
+          event.stopPropagation();
+
+          const isOpen =
+            profileDropdown.classList.contains("show");
+
+
+          if (isOpen) {
+
+            profileDropdown.classList.remove("show");
+
+            profileButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            profileArrow.textContent = "⌄";
+
+          } else {
+
+            profileDropdown.classList.add("show");
+
+            profileButton.setAttribute(
+              "aria-expanded",
+              "true"
+            );
+
+            profileArrow.textContent = "⌃";
+
+          }
+
+        }
+      );
+
+
+      /* Close dropdown when clicking outside */
+
+      document.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            !profileDropdown.contains(event.target) &&
+            !profileButton.contains(event.target)
+          ) {
+
+            profileDropdown.classList.remove("show");
+
+            profileButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            profileArrow.textContent = "⌄";
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       PROFILE DETAILS
+       Get saved registration details if available
+    ====================================================== */
+
+    function loadProfileDetails() {
+
+      try {
+
+        const savedUser =
+          JSON.parse(
+            localStorage.getItem("skillbridgeUser")
+          );
+
+
+        if (!savedUser) {
+          return;
+        }
+
+
+        const name =
+          savedUser.name ||
+          savedUser.fullName ||
+          savedUser.username ||
+          "Lakchitha A";
+
+
+        const email =
+          savedUser.email ||
+          "lakchitha@example.com";
+
+
+        const firstLetter =
+          name.charAt(0).toUpperCase();
+
+
+        /* Top-right name */
+
+        const studentName =
+          document.getElementById("studentName");
+
+        if (studentName) {
+          studentName.textContent = name;
+        }
+
+
+        /* Avatar */
+
+        const avatarInitial =
+          document.getElementById("avatarInitial");
+
+        if (avatarInitial) {
+          avatarInitial.textContent = firstLetter;
+        }
+
+
+        /* Dropdown avatar */
+
+        const dropdownAvatar =
+          document.getElementById("dropdownAvatar");
+
+        if (dropdownAvatar) {
+          dropdownAvatar.textContent = firstLetter;
+        }
+
+
+        /* Dropdown name */
+
+        const dropdownName =
+          document.getElementById("dropdownName");
+
+        if (dropdownName) {
+          dropdownName.textContent = name;
+        }
+
+
+        /* Full name */
+
+        const dropdownFullName =
+          document.getElementById("dropdownFullName");
+
+        if (dropdownFullName) {
+          dropdownFullName.textContent = name;
+        }
+
+
+        /* Email */
+
+        const dropdownEmail =
+          document.getElementById("dropdownEmail");
+
+        if (dropdownEmail) {
+          dropdownEmail.textContent = email;
+        }
+
+
+        /* Greeting */
+
+        const greetingName =
+          document.getElementById("greetingName");
+
+        if (greetingName) {
+          greetingName.textContent = name;
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Profile information could not be loaded."
+        );
+
+      }
+
+    }
+
+
+    loadProfileDetails();
+
+
+    /* =====================================================
+       FULL REPORT MODAL
+       Reads the same session scores script.js used to
+       render the dashboard, then builds a per-metric
+       breakdown with a practice message for weak areas.
+    ====================================================== */
+
+    const REPORT_METRICS = [
+      {
+        key: "interview",
+        title: "Interview readiness",
+        color: "#6258d9",
+        lowMsg: "Your interview readiness is below where it needs to be. Practice at least 3 mock interview questions this week and record yourself answering out loud — it builds confidence fast.",
+        okMsg: "You're holding steady here. Keep doing one mock interview question every few days so you don't lose momentum."
+      },
+      {
+        key: "aptitude",
+        title: "Aptitude score",
+        color: "#f49b48",
+        lowMsg: "Your problem-solving speed needs more reps. Spend 20 minutes a day on quantitative and logical reasoning sets to build accuracy under time pressure.",
+        okMsg: "Solid problem-solving base. A couple of timed practice sets a week will keep you sharp."
+      },
+      {
+        key: "technical",
+        title: "Technical skills",
+        color: "#39aa9a",
+        lowMsg: "Your applied technical proficiency is below target. Pick one small project from your enrolled pathway and finish it end-to-end this week to close the gap.",
+        okMsg: "Your technical foundation is in good shape. Keep shipping small projects to stay current."
+      }
+    ];
+
+    function getSessionScores() {
+
+      try {
+
+        const session =
+          JSON.parse(localStorage.getItem("skillbridge_session"));
+
+        if (session && session.scores) {
+          return session.scores;
+        }
+
+      } catch (error) {
+        /* fall through to default */
+      }
+
+      return { interview: 35, aptitude: 68, technical: 52 };
+
+    }
+
+    function buildReport() {
+
+      const scores = getSessionScores();
+
+      const overall =
+        Math.round(
+          REPORT_METRICS.reduce(function (total, metric) {
+            return total + (Number(scores[metric.key]) || 0);
+          }, 0) / REPORT_METRICS.length
+        );
+
+      const overallValueEl =
+        document.getElementById("reportOverallValue");
+
+      if (overallValueEl) {
+        overallValueEl.textContent = overall + "%";
+      }
+
+      const listEl =
+        document.getElementById("reportMetricList");
+
+      if (!listEl) {
+        return;
+      }
+
+      listEl.innerHTML = REPORT_METRICS.map(function (metric) {
+
+        const value =
+          Math.max(0, Math.min(100, Number(scores[metric.key]) || 0));
+
+        const isLow = value < 40;
+
+        const badgeClass = isLow ? "low" : "ok";
+        const badgeText = isLow ? "Needs practice" : "On track";
+        const message = isLow ? metric.lowMsg : metric.okMsg;
+
+        return (
+          '<div class="report-metric">' +
+            '<div class="report-metric-top">' +
+              '<h3>' + metric.title + '</h3>' +
+              '<span class="report-badge ' + badgeClass + '">' + badgeText + '</span>' +
+            '</div>' +
+            '<div class="report-metric-bar">' +
+              '<div class="tiny-progress">' +
+                '<span style="width:' + value + '%;background:' + metric.color + '"></span>' +
+              '</div>' +
+              '<strong>' + value + '%</strong>' +
+            '</div>' +
+            '<p class="practice-msg ' + badgeClass + '">' + message + '</p>' +
+          '</div>'
+        );
+
+      }).join("");
+
+    }
+
+    const reportModal =
+      document.getElementById("reportModal");
+
+    function openReportModal() {
+      buildReport();
+      if (reportModal) {
+        reportModal.hidden = false;
+      }
+    }
+
+    function closeReportModal() {
+      if (reportModal) {
+        reportModal.hidden = true;
+      }
+    }
+
+    const fullReportBtn =
+      document.getElementById("fullReportBtn");
+
+    if (fullReportBtn) {
+      fullReportBtn.addEventListener("click", openReportModal);
+    }
+
+    const reportCloseBtn =
+      document.getElementById("reportCloseBtn");
+
+    if (reportCloseBtn) {
+      reportCloseBtn.addEventListener("click", closeReportModal);
+    }
+
+    const reportCloseBtn2 =
+      document.getElementById("reportCloseBtn2");
+
+    if (reportCloseBtn2) {
+      reportCloseBtn2.addEventListener("click", closeReportModal);
+    }
+
+    if (reportModal) {
+      reportModal.addEventListener("click", function (event) {
+        if (event.target === reportModal) {
+          closeReportModal();
+        }
+      });
+    }
+
+    const reportPracticeBtn =
+      document.getElementById("reportPracticeBtn");
+
+    if (reportPracticeBtn) {
+      reportPracticeBtn.addEventListener("click", function () {
+        window.location.href = "courses.html";
+      });
+    }
+
+
+    /* =====================================================
+       DYNAMIC AI RECOMMENDATION
+       Start Interview / Continue Interview
+    ====================================================== */
+
+    document.addEventListener(
+      "click",
+      function (event) {
+
+        const clickedElement =
+          event.target.closest("button, a");
+
+
+        if (!clickedElement) {
+          return;
+        }
+
+
+        const text =
+          clickedElement.textContent
+            .trim()
+            .toLowerCase();
+
+
+        if (
+          text.includes("start interview") ||
+          text.includes("continue interview")
+        ) {
+
+          event.preventDefault();
+
+          window.location.href =
+            "courses.html";
+
+          return;
+
+        }
+
+
+        if (
+          clickedElement.classList.contains(
+            "ai-link"
+          )
+        ) {
+
+          event.preventDefault();
+
+          window.location.href =
+            "courses.html";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       MOBILE SIDEBAR
+    ====================================================== */
+
+    const menuButton =
+      document.getElementById("menuButton");
+
+    const sidebar =
+      document.getElementById("sidebar");
+
+
+    if (menuButton && sidebar) {
+
+      menuButton.addEventListener(
+        "click",
+        function () {
+
+          sidebar.classList.toggle("open");
+
+
+          const isOpen =
+            sidebar.classList.contains("open");
+
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       CLOSE MOBILE SIDEBAR AFTER NAVIGATION
+    ====================================================== */
+
+    if (sidebar) {
+
+      const sidebarLinks =
+        sidebar.querySelectorAll(".nav-item");
+
+
+      sidebarLinks.forEach(
+        function (link) {
+
+          link.addEventListener(
+            "click",
+            function () {
+
+              sidebar.classList.remove(
+                "open"
+              );
+
+
+              if (menuButton) {
+
+                menuButton.setAttribute(
+                  "aria-expanded",
+                  "false"
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+
+</html>
