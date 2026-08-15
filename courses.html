@@ -1,0 +1,2751 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+
+  <title>Courses | SkillBridge</title>
+
+  <style>
+
+    /* =====================================================
+       GLOBAL
+    ====================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background: #f7f8fc;
+      color: #17233f;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+
+    /* =====================================================
+       APP SHELL
+    ====================================================== */
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ====================================================== */
+
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      background: #ffffff;
+      border-right: 1px solid #e8eaf1;
+
+      padding: 26px 16px;
+
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 19px;
+      font-weight: 800;
+
+      color: #17233f;
+
+      margin-bottom: 38px;
+      padding-left: 8px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background: #5b50d6;
+      color: white;
+
+      font-size: 17px;
+      font-weight: 900;
+
+      box-shadow:
+        0 6px 15px rgba(91, 80, 214, .25);
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ====================================================== */
+
+    .nav-label {
+      margin: 0 0 10px 12px;
+
+      color: #a0a8b8;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: 1px;
+    }
+
+    .nav-label.second {
+      margin-top: 28px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 12px 13px;
+
+      margin: 4px 0;
+
+      border-radius: 10px;
+
+      color: #778197;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      transition: .2s ease;
+    }
+
+    .nav-item span {
+      width: 20px;
+
+      display: inline-flex;
+      justify-content: center;
+
+      font-size: 15px;
+    }
+
+    .nav-item:hover {
+      background: #f3f2ff;
+      color: #5b50d6;
+    }
+
+    .nav-item.active {
+      background: #efedff;
+      color: #5b50d6;
+
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+    ====================================================== */
+
+    .main-content {
+      width: calc(100% - 240px);
+
+      margin-left: 240px;
+
+      min-height: 100vh;
+
+      padding: 0 42px 50px;
+    }
+
+
+    /* =====================================================
+       TOPBAR
+    ====================================================== */
+
+    .topbar {
+      height: 78px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-bottom: 1px solid #eceef4;
+
+      margin-bottom: 28px;
+    }
+
+    .menu-button {
+      display: none;
+
+      border: 0;
+      background: transparent;
+
+      font-size: 24px;
+
+      cursor: pointer;
+    }
+
+    .mobile-brand {
+      display: none;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .top-actions {
+      margin-left: auto;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .user-chip strong {
+      display: block;
+
+      font-size: 12px;
+      color: #17233f;
+    }
+
+    .user-chip small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #929bad;
+
+      font-size: 9px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: #5b50d6;
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .page-hero {
+      position: relative;
+
+      padding: 35px 38px;
+
+      margin-bottom: 25px;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f5f3ff 100%
+        );
+
+      border: 1px solid #e9e8f5;
+
+      overflow: hidden;
+    }
+
+    .page-hero::after {
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      right: -70px;
+      top: -80px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(91, 80, 214, .08);
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: 1.4px;
+
+      color: #929bad;
+    }
+
+    .eyebrow.accent {
+      color: #5b50d6;
+    }
+
+    .page-hero h1 {
+      margin: 0;
+
+      position: relative;
+      z-index: 1;
+
+      font-size: 32px;
+
+      line-height: 1.15;
+
+      letter-spacing: -.7px;
+    }
+
+    .page-hero h1 span {
+      color: #5b50d6;
+    }
+
+    .page-hero > p:not(.eyebrow) {
+      position: relative;
+
+      z-index: 1;
+
+      max-width: 560px;
+
+      margin: 12px 0 20px;
+
+      color: #778197;
+
+      font-size: 12px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       SEARCH BOX
+    ====================================================== */
+
+    .search-box {
+      position: relative;
+
+      z-index: 2;
+
+      width: min(520px, 100%);
+
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 0 15px;
+
+      background: white;
+
+      border: 1px solid #e3e5ed;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 5px 18px rgba(31, 40, 73, .05);
+    }
+
+    .search-box span {
+      color: #9099ab;
+
+      font-size: 21px;
+    }
+
+    .search-box input {
+      width: 100%;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: #17233f;
+
+      font-size: 11px;
+    }
+
+    .search-box input::placeholder {
+      color: #a0a8b8;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ====================================================== */
+
+    .filter-row {
+      display: flex;
+
+      gap: 7px;
+
+      flex-wrap: wrap;
+
+      margin-bottom: 22px;
+    }
+
+    .filter {
+      border: 1px solid #e1e4ec;
+
+      background: #ffffff;
+
+      color: #7b8497;
+
+      border-radius: 20px;
+
+      padding: 7px 13px;
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+    .filter:hover {
+      border-color: #5b50d6;
+
+      color: #5b50d6;
+    }
+
+    .filter.active {
+      background: #5b50d6;
+
+      border-color: #5b50d6;
+
+      color: #ffffff;
+    }
+
+
+    /* =====================================================
+       YOUR SELECTED COURSE
+    ====================================================== */
+
+    .selected-course-section {
+      margin-bottom: 28px;
+    }
+
+    .selected-course-section[hidden] {
+      display: none;
+    }
+
+    .selected-course-header {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 14px;
+    }
+
+    .selected-course-header h2 {
+      margin: 0;
+
+      color: #17233f;
+
+      font-size: 19px;
+    }
+
+    .change-course-button {
+      border: 1px solid #ddd9ff;
+
+      background: #f1efff;
+
+      color: #5b50d6;
+
+      padding: 9px 14px;
+
+      border-radius: 9px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .change-course-button:hover {
+      background: #5b50d6;
+
+      color: #ffffff;
+    }
+
+    .selected-course-card {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 18px;
+
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff,
+          #f7f5ff
+        );
+
+      border: 1px solid #ddd9ff;
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 8px 25px rgba(91, 80, 214, .08);
+    }
+
+    .selected-course-icon {
+      width: 52px;
+      height: 52px;
+
+      flex-shrink: 0;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 14px;
+
+      background: #5b50d6;
+
+      color: #ffffff;
+
+      font-size: 20px;
+
+      font-weight: 900;
+    }
+
+    .selected-course-content {
+      flex: 1;
+    }
+
+    .selected-course-category {
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      margin-bottom: 7px;
+
+      border-radius: 20px;
+
+      background: #efedff;
+
+      color: #5b50d6;
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: .5px;
+    }
+
+    .selected-course-content h3 {
+      margin: 0 0 7px;
+
+      color: #17233f;
+
+      font-size: 17px;
+    }
+
+    .selected-course-content p {
+      margin: 0;
+
+      color: #778197;
+
+      font-size: 10px;
+
+      line-height: 1.6;
+    }
+
+    .selected-course-details {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 12px;
+    }
+
+    .selected-course-details span {
+      padding: 6px 9px;
+
+      border-radius: 7px;
+
+      background: #ffffff;
+
+      border: 1px solid #e7e5f2;
+
+      color: #68738a;
+
+      font-size: 9px;
+
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       COURSE GRID
+    ====================================================== */
+
+    .course-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+    }
+
+
+    /* =====================================================
+       COURSE CARD
+    ====================================================== */
+
+    .course-card {
+      position: relative;
+
+      padding: 20px;
+
+      background: #ffffff;
+
+      border: 1px solid #e5e7ee;
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 7px 22px rgba(31, 40, 73, .045);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 12px 30px rgba(31, 40, 73, .08);
+
+      border-color: #d9d6fb;
+    }
+
+
+    /* =====================================================
+       COURSE CARD TOP
+    ====================================================== */
+
+    .course-card-top {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-bottom: 15px;
+    }
+
+    .course-category {
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      background: #efedff;
+
+      color: #5b50d6;
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: .4px;
+    }
+
+    .course-level {
+      color: #929bad;
+
+      font-size: 9px;
+
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       COURSE TEXT
+    ====================================================== */
+
+    .course-card h3 {
+      margin: 0 0 8px;
+
+      color: #17233f;
+
+      font-size: 15px;
+
+      line-height: 1.35;
+    }
+
+    .course-description {
+      margin: 0;
+
+      min-height: 54px;
+
+      color: #7b8497;
+
+      font-size: 10px;
+
+      line-height: 1.65;
+    }
+
+
+    /* =====================================================
+       COURSE META
+    ====================================================== */
+
+    .course-meta {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-top: 15px;
+
+      padding-top: 12px;
+
+      border-top: 1px solid #eef0f5;
+
+      color: #8993a6;
+
+      font-size: 9px;
+
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       SKILLS
+    ====================================================== */
+
+    .course-skills {
+      margin-top: 11px;
+
+      color: #5b50d6;
+
+      font-size: 9px;
+
+      font-weight: 700;
+
+      line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       COURSE BUTTON
+    ====================================================== */
+
+    .course-button {
+      width: 100%;
+
+      margin-top: 15px;
+
+      padding: 10px 13px;
+
+      border: 0;
+
+      border-radius: 9px;
+
+      background: #f1efff;
+
+      color: #5b50d6;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+    .course-button:hover {
+      background: #5b50d6;
+
+      color: #ffffff;
+    }
+
+
+    /* =====================================================
+       MODAL
+    ====================================================== */
+
+    .modal {
+      position: fixed;
+
+      inset: 0;
+
+      display: grid;
+
+      place-items: center;
+
+      padding: 20px;
+
+      background:
+        rgba(23, 35, 63, .35);
+
+      z-index: 500;
+    }
+
+    .modal[hidden] {
+      display: none;
+    }
+
+    .modal-card {
+      position: relative;
+
+      width: min(500px, 100%);
+
+      padding: 30px;
+
+      background: #ffffff;
+
+      border-radius: 20px;
+
+      box-shadow:
+        0 20px 60px rgba(23, 35, 63, .2);
+    }
+
+    .modal-close {
+      position: absolute;
+
+      right: 18px;
+
+      top: 15px;
+
+      width: 30px;
+      height: 30px;
+
+      border: 0;
+
+      border-radius: 50%;
+
+      background: #f1f2f7;
+
+      color: #6f788d;
+
+      font-size: 20px;
+
+      cursor: pointer;
+    }
+
+    .course-badge {
+      display: inline-block;
+
+      margin-bottom: 10px;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      background: #efedff;
+
+      color: #5b50d6;
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      letter-spacing: .5px;
+    }
+
+    .modal-card h2 {
+      margin: 0 0 12px;
+
+      color: #17233f;
+
+      font-size: 23px;
+    }
+
+    .modal-card > p {
+      margin: 0;
+
+      color: #778197;
+
+      font-size: 11px;
+
+      line-height: 1.7;
+    }
+
+    .modal-actions {
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      flex: 1;
+
+      padding: 11px 14px;
+
+      border-radius: 9px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .primary-button {
+      border: 0;
+
+      background: #5b50d6;
+
+      color: white;
+    }
+
+    .secondary-button {
+      border: 1px solid #e1e4ec;
+
+      background: white;
+
+      color: #7b8497;
+    }
+
+
+    /* =====================================================
+       TOAST
+    ====================================================== */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 25px;
+
+      transform:
+        translate(-50%, 20px);
+
+      padding: 12px 18px;
+
+      background: #17233f;
+
+      color: #ffffff;
+
+      border-radius: 10px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: .25s ease;
+
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 1050px) {
+
+      .course-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+      .sidebar {
+        width: 240px;
+
+        transform:
+          translateX(-100%);
+
+        transition: .25s ease;
+      }
+
+      .sidebar.open {
+        transform:
+          translateX(0);
+      }
+
+      .main-content {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding:
+          0 18px 40px;
+      }
+
+      .topbar {
+        height: 68px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .mobile-brand {
+        display: block;
+
+        margin-left: 10px;
+
+        margin-right: auto;
+      }
+
+      .top-actions {
+        margin-left: 10px;
+      }
+
+      .user-chip small {
+        display: none;
+      }
+
+      .page-hero {
+        padding: 26px 22px;
+      }
+
+      .page-hero h1 {
+        font-size: 26px;
+      }
+
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .selected-course-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+      .change-course-button {
+        width: 100%;
+      }
+
+      .selected-course-card {
+        flex-direction: column;
+      }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+      .page-hero h1 {
+        font-size: 23px;
+      }
+
+      .modal-card {
+        padding: 25px 20px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+<div class="app-shell">
+
+
+  <!-- ===================================================
+       SIDEBAR
+  ==================================================== -->
+
+  <aside
+    class="sidebar"
+    id="sidebar">
+
+    <a
+      class="brand side-brand"
+      href="dashboard.html">
+
+      <span class="brand-mark">
+        S
+      </span>
+
+      SkillBridge
+
+    </a>
+
+
+    <nav aria-label="Main navigation">
+
+      <p class="nav-label">
+        MENU
+      </p>
+
+
+      <a
+        class="nav-item"
+        href="dashboard.html">
+
+        <span>▦</span>
+
+        Dashboard
+
+      </a>
+
+
+      <a
+        class="nav-item"
+        href="profile.html">
+
+        <span>◉</span>
+
+        Profile
+
+      </a>
+
+
+      <a
+        class="nav-item active"
+        href="courses.html">
+
+        <span>▤</span>
+
+        Courses
+
+      </a>
+
+
+      <a
+        class="nav-item"
+        href="mentors.html">
+
+        <span>♙</span>
+
+        Mentors
+
+      </a>
+
+
+      <a
+        class="nav-item"
+        href="targets.html">
+
+        <span>◎</span>
+
+        Targets
+
+      </a>
+
+
+      <a
+        class="nav-item"
+        href="goals.html">
+
+        <span>◷</span>
+
+        Short Term Goals
+
+      </a>
+
+
+      <p class="nav-label second">
+        ACCOUNT
+      </p>
+
+
+      <a
+        class="nav-item"
+        href="settings.html">
+
+        <span>⚙</span>
+
+        Settings
+
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+
+  <!-- ===================================================
+       MAIN
+  ==================================================== -->
+
+  <main
+    class="main-content page-content">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+      <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+        aria-label="Open navigation">
+
+        ☰
+
+      </button>
+
+
+      <div class="mobile-brand">
+        SkillBridge
+      </div>
+
+
+      <div class="top-actions">
+
+        <a
+          class="user-chip"
+          href="profile.html">
+
+          <span
+            class="avatar user-initial">
+
+            S
+
+          </span>
+
+
+          <span>
+
+            <strong class="user-name">
+              Student
+            </strong>
+
+            <small>
+              Career learner
+            </small>
+
+          </span>
+
+        </a>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="page-hero">
+
+      <p class="eyebrow accent">
+        LEARNING PATHWAYS
+      </p>
+
+
+      <h1>
+
+        Find the skill that
+
+        <span>
+          moves you forward.
+        </span>
+
+      </h1>
+
+
+      <p>
+
+        Choose a software or hardware
+        pathway and build practical skills
+        through structured learning.
+
+      </p>
+
+
+      <label
+        class="search-box"
+        for="courseSearch">
+
+        <span>
+          ⌕
+        </span>
+
+
+        <input
+          id="courseSearch"
+          type="search"
+          placeholder="Search courses, skills or topics"
+          autocomplete="off">
+
+      </label>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         FILTERS
+    ==================================================== -->
+
+    <div class="filter-row">
+
+      <button
+        class="filter active"
+        data-filter="all"
+        type="button">
+
+        All pathways
+
+      </button>
+
+
+      <button
+        class="filter"
+        data-filter="software"
+        type="button">
+
+        Software
+
+      </button>
+
+
+      <button
+        class="filter"
+        data-filter="hardware"
+        type="button">
+
+        Hardware
+
+      </button>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         YOUR SELECTED COURSE
+    ==================================================== -->
+
+    <section
+      class="selected-course-section"
+      id="selectedCourseSection"
+      hidden>
+
+      <div class="selected-course-header">
+
+        <div>
+
+          <p class="eyebrow accent">
+            YOUR LEARNING PATH
+          </p>
+
+          <h2>
+            Your Selected Course
+          </h2>
+
+        </div>
+
+
+        <button
+          class="change-course-button"
+          id="changeCourseButton"
+          type="button">
+
+          Change Course
+
+        </button>
+
+      </div>
+
+
+      <div class="selected-course-card">
+
+
+        <div
+          class="selected-course-icon"
+          id="selectedCourseIcon">
+
+          ✓
+
+        </div>
+
+
+        <div class="selected-course-content">
+
+
+          <span
+            class="selected-course-category"
+            id="selectedCourseCategory">
+
+          </span>
+
+
+          <h3
+            id="selectedCourseTitle">
+
+          </h3>
+
+
+          <p
+            id="selectedCourseDescription">
+
+          </p>
+
+
+          <div
+            class="selected-course-details">
+
+            <span
+              id="selectedCourseLevel">
+
+            </span>
+
+
+            <span
+              id="selectedCourseDuration">
+
+            </span>
+
+
+            <span
+              id="selectedCourseSkills">
+
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         COURSE GRID
+    ==================================================== -->
+
+    <section
+      id="courseGrid"
+      class="course-grid"
+      aria-live="polite">
+
+    </section>
+
+
+  </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     COURSE MODAL
+====================================================== -->
+
+<div
+  id="courseModal"
+  class="modal"
+  hidden>
+
+
+  <div class="modal-card">
+
+
+    <button
+      class="modal-close"
+      type="button"
+      aria-label="Close">
+
+      ×
+
+    </button>
+
+
+    <span class="course-badge">
+      YOUR PATHWAY
+    </span>
+
+
+    <h2 id="modalTitle">
+    </h2>
+
+
+    <p id="modalText">
+    </p>
+
+
+    <div id="hardwareExtra">
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        id="enrolButton"
+        class="primary-button"
+        type="button">
+
+        Choose this course
+
+      </button>
+
+
+      <button
+        class="secondary-button modal-close"
+        type="button">
+
+        Maybe later
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
+<div
+  class="toast"
+  id="toast"
+  role="status"
+  aria-live="polite">
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   PER-USER DATA ISOLATION
+   Same logic as dashboard.html / mentors.html — clears
+   profile/mentor/course/session data when a different
+   account has logged in.
+===================================================== */
+
+const OWNER_STORAGE_KEY = "skillbridge_data_owner";
+
+const USER_SCOPED_KEYS = [
+  "skillbridge_profile",
+  "skillbridge_selected_mentor",
+  "skillbridge_selected_course",
+  "skillbridge_session"
+];
+
+function getCurrentUserIdentifier() {
+
+  try {
+
+    const stored = localStorage.getItem("skillbridgeUser");
+
+    if (!stored) {
+      return null;
+    }
+
+    const user = JSON.parse(stored);
+
+    return (
+      (user && (user.email || user.username || user.id)) ||
+      null
+    );
+
+  } catch (error) {
+
+    console.error("Unable to read skillbridgeUser:", error);
+    return null;
+
+  }
+
+}
+
+function syncUserDataOwnership() {
+
+  const currentUser = getCurrentUserIdentifier();
+
+  if (!currentUser) {
+    return;
+  }
+
+  const lastOwner = localStorage.getItem(OWNER_STORAGE_KEY);
+
+  if (lastOwner && lastOwner !== currentUser) {
+
+    USER_SCOPED_KEYS.forEach(function(key) {
+      localStorage.removeItem(key);
+    });
+
+  }
+
+  localStorage.setItem(OWNER_STORAGE_KEY, currentUser);
+
+}
+
+syncUserDataOwnership();
+
+
+
+/* =====================================================
+   COURSE DATA
+===================================================== */
+
+const COURSES = [
+
+  /* ================= SOFTWARE ================= */
+
+  {
+    id: "full-stack-development",
+    title: "Full Stack Web Development",
+    category: "software",
+    level: "Beginner",
+    duration: "12 Weeks",
+    description:
+      "Learn frontend and backend development and build complete real-world web applications.",
+    skills:
+      "HTML, CSS, JavaScript, React, Node.js, Express, MongoDB"
+  },
+
+
+  {
+    id: "frontend-development",
+    title: "Frontend Web Development",
+    category: "software",
+    level: "Beginner",
+    duration: "8 Weeks",
+    description:
+      "Build modern, responsive and interactive websites using popular frontend technologies.",
+    skills:
+      "HTML, CSS, JavaScript, React, Responsive Design"
+  },
+
+
+  {
+    id: "backend-development",
+    title: "Backend Development",
+    category: "software",
+    level: "Intermediate",
+    duration: "10 Weeks",
+    description:
+      "Learn how servers, APIs, databases and authentication work together to power applications.",
+    skills:
+      "Node.js, Express, REST API, Authentication, Databases"
+  },
+
+
+  {
+    id: "web-development",
+    title: "Modern Web Development",
+    category: "software",
+    level: "Beginner",
+    duration: "10 Weeks",
+    description:
+      "Learn the fundamentals of creating professional websites and web applications.",
+    skills:
+      "HTML, CSS, JavaScript, Git, APIs"
+  },
+
+
+  {
+    id: "java-programming",
+    title: "Java Programming",
+    category: "software",
+    level: "Beginner",
+    duration: "8 Weeks",
+    description:
+      "Build a strong foundation in Java programming and object-oriented programming concepts.",
+    skills:
+      "Java, OOP, Collections, Exception Handling"
+  },
+
+
+  {
+    id: "python-programming",
+    title: "Python Programming",
+    category: "software",
+    level: "Beginner",
+    duration: "8 Weeks",
+    description:
+      "Learn Python from fundamentals to practical programming and application development.",
+    skills:
+      "Python, Functions, OOP, Modules, File Handling"
+  },
+
+
+  {
+    id: "data-structures",
+    title: "Data Structures & Algorithms",
+    category: "software",
+    level: "Intermediate",
+    duration: "12 Weeks",
+    description:
+      "Master important data structures and algorithms for problem solving and technical interviews.",
+    skills:
+      "Arrays, Linked Lists, Stacks, Queues, Trees, Graphs"
+  },
+
+
+  {
+    id: "database-development",
+    title: "Database & SQL Development",
+    category: "software",
+    level: "Beginner",
+    duration: "7 Weeks",
+    description:
+      "Learn how to design databases and write efficient SQL queries for applications.",
+    skills:
+      "SQL, MySQL, Oracle, Database Design, Joins"
+  },
+
+
+  {
+    id: "mobile-development",
+    title: "Mobile App Development",
+    category: "software",
+    level: "Intermediate",
+    duration: "10 Weeks",
+    description:
+      "Learn how to design and develop mobile applications with modern development tools.",
+    skills:
+      "Flutter, Dart, UI Design, APIs, Firebase"
+  },
+
+
+  {
+    id: "cloud-computing",
+    title: "Cloud Computing",
+    category: "software",
+    level: "Intermediate",
+    duration: "8 Weeks",
+    description:
+      "Understand cloud platforms, deployment and the fundamentals of scalable applications.",
+    skills:
+      "Cloud Basics, AWS, Azure, Deployment, Storage"
+  },
+
+
+  {
+    id: "cyber-security",
+    title: "Cyber Security Fundamentals",
+    category: "software",
+    level: "Intermediate",
+    duration: "9 Weeks",
+    description:
+      "Understand cybersecurity principles and learn how applications and networks are protected.",
+    skills:
+      "Network Security, Authentication, Encryption"
+  },
+
+
+  {
+    id: "ai-machine-learning",
+    title: "AI & Machine Learning",
+    category: "software",
+    level: "Intermediate",
+    duration: "12 Weeks",
+    description:
+      "Learn the fundamentals of artificial intelligence and build basic machine learning models.",
+    skills:
+      "Python, NumPy, Pandas, Machine Learning"
+  },
+
+
+  /* ================= HARDWARE ================= */
+
+  {
+    id: "embedded-systems",
+    title: "Embedded Systems",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "10 Weeks",
+    description:
+      "Learn how software interacts with hardware using microcontrollers and embedded systems.",
+    skills:
+      "Microcontrollers, C, Sensors, GPIO"
+  },
+
+
+  {
+    id: "arduino",
+    title: "Arduino & IoT",
+    category: "hardware",
+    level: "Beginner",
+    duration: "8 Weeks",
+    description:
+      "Build practical IoT projects using Arduino, sensors and connected devices.",
+    skills:
+      "Arduino, Sensors, C/C++, IoT"
+  },
+
+
+  {
+    id: "raspberry-pi",
+    title: "Raspberry Pi Projects",
+    category: "hardware",
+    level: "Beginner",
+    duration: "7 Weeks",
+    description:
+      "Learn to create smart hardware projects using Raspberry Pi and external components.",
+    skills:
+      "Raspberry Pi, Linux, GPIO, Python"
+  },
+
+
+  {
+    id: "iot-development",
+    title: "Internet of Things",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "10 Weeks",
+    description:
+      "Learn how sensors, devices and cloud services communicate to create smart systems.",
+    skills:
+      "IoT, Sensors, MQTT, Microcontrollers"
+  },
+
+
+  {
+    id: "digital-electronics",
+    title: "Digital Electronics",
+    category: "hardware",
+    level: "Beginner",
+    duration: "8 Weeks",
+    description:
+      "Understand digital circuits and build a strong foundation in electronic systems.",
+    skills:
+      "Logic Gates, Boolean Algebra, Flip-Flops"
+  },
+
+
+  {
+    id: "microcontrollers",
+    title: "Microcontroller Programming",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "9 Weeks",
+    description:
+      "Learn programming concepts for microcontrollers and interface them with hardware components.",
+    skills:
+      "C, Microcontrollers, Timers, Interrupts"
+  },
+
+
+  {
+    id: "robotics",
+    title: "Robotics & Automation",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "12 Weeks",
+    description:
+      "Design and build basic robots using sensors, motors and microcontrollers.",
+    skills:
+      "Arduino, Motors, Sensors, Robotics"
+  },
+
+
+  {
+    id: "pcb-design",
+    title: "PCB Design",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "7 Weeks",
+    description:
+      "Learn the fundamentals of designing printed circuit boards for electronic projects.",
+    skills:
+      "PCB Design, Circuit Layout, KiCad"
+  },
+
+
+  {
+    id: "vlsi",
+    title: "VLSI Design",
+    category: "hardware",
+    level: "Advanced",
+    duration: "12 Weeks",
+    description:
+      "Explore digital design and the fundamentals of very-large-scale integration technology.",
+    skills:
+      "Digital Design, Verilog, HDL, VLSI"
+  },
+
+
+  {
+    id: "computer-architecture",
+    title: "Computer Architecture",
+    category: "hardware",
+    level: "Intermediate",
+    duration: "8 Weeks",
+    description:
+      "Understand how processors, memory and other computer components work together.",
+    skills:
+      "CPU, Memory, Registers, ALU, I/O"
+  }
+
+];
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+const courseGrid =
+  document.getElementById("courseGrid");
+
+const courseSearch =
+  document.getElementById("courseSearch");
+
+const filters =
+  document.querySelectorAll(".filter");
+
+const courseModal =
+  document.getElementById("courseModal");
+
+const modalTitle =
+  document.getElementById("modalTitle");
+
+const modalText =
+  document.getElementById("modalText");
+
+const hardwareExtra =
+  document.getElementById("hardwareExtra");
+
+const enrolButton =
+  document.getElementById("enrolButton");
+
+const toast =
+  document.getElementById("toast");
+
+
+/* SELECTED COURSE ELEMENTS */
+
+const selectedCourseSection =
+  document.getElementById(
+    "selectedCourseSection"
+  );
+
+const selectedCourseTitle =
+  document.getElementById(
+    "selectedCourseTitle"
+  );
+
+const selectedCourseDescription =
+  document.getElementById(
+    "selectedCourseDescription"
+  );
+
+const selectedCourseCategory =
+  document.getElementById(
+    "selectedCourseCategory"
+  );
+
+const selectedCourseLevel =
+  document.getElementById(
+    "selectedCourseLevel"
+  );
+
+const selectedCourseDuration =
+  document.getElementById(
+    "selectedCourseDuration"
+  );
+
+const selectedCourseSkills =
+  document.getElementById(
+    "selectedCourseSkills"
+  );
+
+const selectedCourseIcon =
+  document.getElementById(
+    "selectedCourseIcon"
+  );
+
+const changeCourseButton =
+  document.getElementById(
+    "changeCourseButton"
+  );
+
+
+let activeFilter = "all";
+
+let selectedCourse = null;
+
+
+/* =====================================================
+   RENDER COURSES
+===================================================== */
+
+function renderCourses() {
+
+  const searchText =
+    courseSearch.value
+      .trim()
+      .toLowerCase();
+
+
+  const filteredCourses =
+    COURSES.filter(function(course) {
+
+      const matchesCategory =
+        activeFilter === "all" ||
+        course.category === activeFilter;
+
+
+      const searchableText =
+        (
+          course.title +
+          " " +
+          course.description +
+          " " +
+          course.skills +
+          " " +
+          course.level
+        ).toLowerCase();
+
+
+      const matchesSearch =
+        !searchText ||
+        searchableText.includes(
+          searchText
+        );
+
+
+      return (
+        matchesCategory &&
+        matchesSearch
+      );
+
+    });
+
+
+  if (!filteredCourses.length) {
+
+    courseGrid.innerHTML = `
+
+      <div style="
+        grid-column:1/-1;
+        padding:40px;
+        text-align:center;
+        color:#7c899e;
+      ">
+
+        <h3>
+          No courses found
+        </h3>
+
+        <p>
+          Try searching for another skill or topic.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  courseGrid.innerHTML =
+    filteredCourses.map(
+      function(course) {
+
+        const categoryName =
+          course.category === "software"
+            ? "Software"
+            : "Hardware";
+
+
+        return `
+
+          <article
+            class="course-card"
+            data-category="${course.category}">
+
+
+            <div class="course-card-top">
+
+              <span class="course-category">
+                ${categoryName}
+              </span>
+
+              <span class="course-level">
+                ${course.level}
+              </span>
+
+            </div>
+
+
+            <h3>
+              ${course.title}
+            </h3>
+
+
+            <p class="course-description">
+              ${course.description}
+            </p>
+
+
+            <div class="course-meta">
+
+              <span>
+                ⏱ ${course.duration}
+              </span>
+
+              <span>
+                ${
+                  course.category === "software"
+                    ? "💻 Software"
+                    : "⚙ Hardware"
+                }
+              </span>
+
+            </div>
+
+
+            <div class="course-skills">
+              ${course.skills}
+            </div>
+
+
+            <button
+              class="course-button"
+              type="button"
+              data-course-id="${course.id}">
+
+              Explore course →
+
+            </button>
+
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
+
+
+  courseGrid
+    .querySelectorAll(
+      "[data-course-id]"
+    )
+    .forEach(function(button) {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          const course =
+            COURSES.find(
+              function(item) {
+
+                return (
+                  item.id ===
+                  button.dataset.courseId
+                );
+
+              }
+            );
+
+
+          openCourseModal(course);
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   OPEN COURSE MODAL
+===================================================== */
+
+function openCourseModal(course) {
+
+  if (!course) {
+    return;
+  }
+
+
+  selectedCourse = course;
+
+
+  modalTitle.textContent =
+    course.title;
+
+
+  modalText.textContent =
+    course.description;
+
+
+  hardwareExtra.innerHTML = `
+
+    <div style="
+      margin:18px 0;
+      padding:14px;
+      background:#f7f6ff;
+      border-radius:10px;
+      color:#68738a;
+      font-size:11px;
+      line-height:1.6;
+    ">
+
+      <strong style="color:#5b50d6;">
+        Skills covered
+      </strong>
+
+      <br>
+
+      ${course.skills}
+
+      <br><br>
+
+      <strong style="color:#5b50d6;">
+        Level:
+      </strong>
+
+      ${course.level}
+
+      <br>
+
+      <strong style="color:#5b50d6;">
+        Duration:
+      </strong>
+
+      ${course.duration}
+
+    </div>
+
+  `;
+
+
+  courseModal.hidden = false;
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+document
+  .querySelectorAll(".modal-close")
+  .forEach(function(button) {
+
+    button.addEventListener(
+      "click",
+      function() {
+
+        courseModal.hidden = true;
+
+        selectedCourse = null;
+
+      }
+    );
+
+  });
+
+
+courseModal.addEventListener(
+  "click",
+  function(event) {
+
+    if (
+      event.target ===
+      courseModal
+    ) {
+
+      courseModal.hidden = true;
+
+      selectedCourse = null;
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   SHOW SELECTED COURSE
+===================================================== */
+
+function showSelectedCourse() {
+
+  const storedCourse =
+    localStorage.getItem(
+      "skillbridge_selected_course"
+    );
+
+
+  if (!storedCourse) {
+
+    selectedCourseSection.hidden =
+      true;
+
+    return;
+  }
+
+
+  let course = null;
+
+
+  try {
+
+    course =
+      JSON.parse(
+        storedCourse
+      );
+
+  }
+
+  catch(error) {
+
+    selectedCourseSection.hidden =
+      true;
+
+    return;
+  }
+
+
+  if (!course) {
+
+    selectedCourseSection.hidden =
+      true;
+
+    return;
+  }
+
+
+  const categoryName =
+    course.category === "software"
+      ? "Software"
+      : "Hardware";
+
+
+  selectedCourseCategory.textContent =
+    categoryName;
+
+
+  selectedCourseTitle.textContent =
+    course.title;
+
+
+  selectedCourseDescription.textContent =
+    course.description;
+
+
+  selectedCourseLevel.textContent =
+    "Level: " + course.level;
+
+
+  selectedCourseDuration.textContent =
+    "Duration: " + course.duration;
+
+
+  selectedCourseSkills.textContent =
+    "Skills: " + course.skills;
+
+
+  selectedCourseIcon.textContent =
+    course.category === "software"
+      ? "💻"
+      : "⚙";
+
+
+  selectedCourseSection.hidden =
+    false;
+
+}
+
+
+/* =====================================================
+   CHOOSE COURSE
+===================================================== */
+
+enrolButton.addEventListener(
+  "click",
+  function() {
+
+    if (!selectedCourse) {
+      return;
+    }
+
+
+    localStorage.setItem(
+      "skillbridge_selected_course",
+      JSON.stringify(
+        selectedCourse
+      )
+    );
+
+
+    showSelectedCourse();
+
+
+    showToast(
+      selectedCourse.title +
+      " added to your learning path ✓"
+    );
+
+
+    courseModal.hidden = true;
+
+
+    selectedCourse = null;
+
+  }
+);
+
+
+/* =====================================================
+   CHANGE COURSE
+===================================================== */
+
+if (changeCourseButton) {
+
+  changeCourseButton.addEventListener(
+    "click",
+    function() {
+
+      localStorage.removeItem(
+        "skillbridge_selected_course"
+      );
+
+
+      showSelectedCourse();
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+
+      showToast(
+        "Choose another course."
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+courseSearch.addEventListener(
+  "input",
+  renderCourses
+);
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+filters.forEach(
+  function(button) {
+
+    button.addEventListener(
+      "click",
+      function() {
+
+        filters.forEach(
+          function(item) {
+
+            item.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        activeFilter =
+          button.dataset.filter;
+
+
+        renderCourses();
+
+      }
+    );
+
+  }
+);
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message) {
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  setTimeout(
+    function() {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },
+    2500
+  );
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
+
+const sidebar =
+  document.getElementById(
+    "sidebar"
+  );
+
+
+if (
+  menuButton &&
+  sidebar
+) {
+
+  menuButton.addEventListener(
+    "click",
+    function() {
+
+      sidebar.classList.toggle(
+        "open"
+      );
+
+    }
+  );
+
+
+  sidebar
+    .querySelectorAll(".nav-item")
+    .forEach(function(link) {
+
+      link.addEventListener(
+        "click",
+        function() {
+
+          sidebar.classList.remove(
+            "open"
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   USER INFORMATION
+===================================================== */
+
+function loadUserInformation() {
+
+  let user = null;
+
+
+  try {
+
+    const stored =
+      localStorage.getItem(
+        "skillbridgeUser"
+      );
+
+
+    if (stored) {
+
+      user =
+        JSON.parse(stored);
+
+    }
+
+  }
+
+  catch(error) {
+
+    user = null;
+
+  }
+
+
+  const name =
+    user &&
+    (
+      user.name ||
+      user.fullName ||
+      user.username
+    )
+      ? (
+          user.name ||
+          user.fullName ||
+          user.username
+        )
+      : "Student";
+
+
+  document
+    .querySelectorAll(".user-name")
+    .forEach(
+      function(element) {
+
+        element.textContent =
+          name;
+
+      }
+    );
+
+
+  const firstLetter =
+    name
+      .trim()
+      .charAt(0)
+      .toUpperCase();
+
+
+  document
+    .querySelectorAll(".user-initial")
+    .forEach(
+      function(element) {
+
+        element.textContent =
+          firstLetter || "S";
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+loadUserInformation();
+
+renderCourses();
+
+showSelectedCourse();
+
+</script>
+
+
+</body>
+
+</html>

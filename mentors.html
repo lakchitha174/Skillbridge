@@ -1,0 +1,2622 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Mentors | SkillBridge</title>
+
+
+  <style>
+
+    /* =====================================================
+       RESET / GLOBAL
+    ====================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background: #f7f8fc;
+      color: #17233f;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       APP SHELL
+    ====================================================== */
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ====================================================== */
+
+    .sidebar {
+      position: fixed;
+
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      width: 240px;
+      min-height: 100vh;
+
+      padding: 26px 16px;
+
+      background: #ffffff;
+
+      border-right:
+        1px solid #e8eaf1;
+
+      z-index: 1000;
+
+      overflow-y: auto;
+    }
+
+
+    /* BRAND */
+
+    .brand {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      margin-bottom: 38px;
+      padding-left: 8px;
+
+      color: #17233f;
+
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background: #5b50d6;
+      color: #ffffff;
+
+      font-size: 17px;
+      font-weight: 900;
+
+      box-shadow:
+        0 6px 15px
+        rgba(91, 80, 214, .25);
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ====================================================== */
+
+    .nav-label {
+      margin: 0 0 10px 12px;
+
+      color: #a0a8b8;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: 1px;
+    }
+
+    .nav-label.second {
+      margin-top: 28px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      width: 100%;
+
+      padding: 12px 13px;
+      margin: 4px 0;
+
+      border-radius: 10px;
+
+      color: #778197;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+    }
+
+    .nav-item span {
+      width: 20px;
+
+      display: inline-flex;
+      justify-content: center;
+
+      font-size: 15px;
+    }
+
+    .nav-item:hover {
+      background: #f3f2ff;
+      color: #5b50d6;
+    }
+
+    .nav-item.active {
+      background: #efedff;
+      color: #5b50d6;
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+    ====================================================== */
+
+    .main-content {
+      width: calc(100% - 240px);
+
+      margin-left: 240px;
+
+      min-height: 100vh;
+
+      padding:
+        0 42px 50px;
+    }
+
+
+    /* =====================================================
+       TOPBAR
+    ====================================================== */
+
+    .topbar {
+      height: 78px;
+
+      display: flex;
+      align-items: center;
+
+      border-bottom:
+        1px solid #eceef4;
+
+      margin-bottom: 28px;
+    }
+
+    .menu-button {
+      display: none;
+
+      width: 40px;
+      height: 40px;
+
+      border: 0;
+
+      background: transparent;
+
+      color: #17233f;
+
+      font-size: 24px;
+    }
+
+    .mobile-brand {
+      display: none;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .top-actions {
+      margin-left: auto;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .user-chip strong {
+      display: block;
+
+      color: #17233f;
+
+      font-size: 12px;
+    }
+
+    .user-chip small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #929bad;
+
+      font-size: 9px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: #5b50d6;
+      color: #ffffff;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .page-hero {
+      position: relative;
+
+      padding: 35px 38px;
+
+      margin-bottom: 30px;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f5f3ff 100%
+        );
+
+      border:
+        1px solid #e9e8f5;
+
+      overflow: hidden;
+    }
+
+    .page-hero::after {
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      right: -70px;
+      top: -80px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(91, 80, 214, .08);
+
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+
+      color: #929bad;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: 1.4px;
+    }
+
+    .eyebrow.accent {
+      color: #5b50d6;
+    }
+
+    .page-hero h1 {
+      position: relative;
+      z-index: 1;
+
+      margin: 0;
+
+      color: #17233f;
+
+      font-size: 32px;
+      line-height: 1.15;
+
+      letter-spacing: -.7px;
+    }
+
+    .page-hero h1 span {
+      color: #5b50d6;
+    }
+
+    .page-hero > p:not(.eyebrow) {
+      position: relative;
+      z-index: 1;
+
+      max-width: 560px;
+
+      margin:
+        12px 0 20px;
+
+      color: #778197;
+
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       SEARCH BOX
+    ====================================================== */
+
+    .search-box {
+      position: relative;
+      z-index: 5;
+
+      width: min(520px, 100%);
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 0 15px;
+
+      background: #ffffff;
+
+      border:
+        1px solid #e3e5ed;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 5px 18px
+        rgba(31, 40, 73, .05);
+    }
+
+    .search-box span {
+      flex: 0 0 auto;
+
+      color: #9099ab;
+
+      font-size: 21px;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-width: 0;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: #17233f;
+
+      font-size: 11px;
+    }
+
+    .search-box input::placeholder {
+      color: #a0a8b8;
+    }
+
+
+    /* =====================================================
+       ASSIGNED MENTOR
+    ====================================================== */
+
+    .assigned-panel {
+      margin-bottom: 30px;
+    }
+
+    .assigned-mentor-card {
+      display: flex;
+      align-items: center;
+
+      gap: 16px;
+
+      width: 100%;
+
+      padding: 18px 20px;
+
+      background: #ffffff;
+
+      border:
+        1px solid #e7e9f0;
+
+      border-radius: 16px;
+
+      box-shadow:
+        0 8px 24px
+        rgba(31, 40, 73, .06);
+    }
+
+    .assigned-mentor-avatar {
+      width: 54px;
+      height: 54px;
+
+      flex: 0 0 54px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: #5b50d6;
+      color: #ffffff;
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .assigned-mentor-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .assigned-mentor-label {
+      display: block;
+
+      margin-bottom: 3px;
+
+      color: #8b96aa;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: .6px;
+
+      text-transform: uppercase;
+    }
+
+    .assigned-mentor-info h3 {
+      margin: 0 0 3px;
+
+      color: #17233f;
+
+      font-size: 15px;
+    }
+
+    .assigned-mentor-info p {
+      margin: 0;
+
+      color: #758097;
+
+      font-size: 11px;
+    }
+
+    .assigned-badge {
+      padding: 6px 10px;
+
+      border-radius: 20px;
+
+      background: #e9f7f0;
+      color: #37936b;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       SECTION HEADING
+    ====================================================== */
+
+    .section-heading {
+      display: flex;
+
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      margin:
+        0 0 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+
+      color: #17233f;
+
+      font-size: 22px;
+
+      letter-spacing: -.3px;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ====================================================== */
+
+    .filter-row {
+      display: flex;
+
+      gap: 7px;
+
+      flex-wrap: wrap;
+    }
+
+    .filter {
+      border:
+        1px solid #e1e4ec;
+
+      background: #ffffff;
+
+      color: #7b8497;
+
+      border-radius: 20px;
+
+      padding: 7px 13px;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      transition: .2s ease;
+    }
+
+    .filter:hover {
+      border-color: #5b50d6;
+      color: #5b50d6;
+    }
+
+    .filter.active {
+      background: #5b50d6;
+      border-color: #5b50d6;
+
+      color: #ffffff;
+    }
+
+
+    /* =====================================================
+       MENTOR GRID
+    ====================================================== */
+
+    .mentor-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+    }
+
+
+    /* =====================================================
+       MENTOR CARD
+    ====================================================== */
+
+    .mentor-card {
+      position: relative;
+
+      min-width: 0;
+
+      padding: 20px;
+
+      background: #ffffff;
+
+      border:
+        1px solid #e5e7ee;
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 7px 22px
+        rgba(31, 40, 73, .045);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+    }
+
+    .mentor-card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(31, 40, 73, .08);
+
+      border-color: #d9d6fb;
+    }
+
+    .mentor-card-selected {
+      border:
+        2px solid #5b50d6 !important;
+
+      box-shadow:
+        0 10px 28px
+        rgba(91, 80, 214, .12);
+    }
+
+
+    /* =====================================================
+       MENTOR CARD TOP
+    ====================================================== */
+
+    .mentor-card-top {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+
+      min-height: 48px;
+
+      margin-bottom: 14px;
+    }
+
+    .mentor-avatar {
+      width: 48px;
+      height: 48px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      background:
+        linear-gradient(
+          135deg,
+          #5b50d6,
+          #8076e8
+        );
+    }
+
+    .online-dot {
+      width: 9px;
+      height: 9px;
+
+      position: absolute;
+
+      left: 37px;
+      bottom: 0;
+
+      border-radius: 50%;
+
+      background: #3bb982;
+
+      border:
+        2px solid #ffffff;
+    }
+
+
+    /* =====================================================
+       MENTOR TEXT
+    ====================================================== */
+
+    .mentor-card h3 {
+      margin:
+        0 0 4px;
+
+      color: #17233f;
+
+      font-size: 15px;
+    }
+
+    .mentor-card > p {
+      margin: 0;
+
+      color: #7b8497;
+
+      font-size: 10px;
+
+      line-height: 1.65;
+    }
+
+    .mentor-card .mentor-specialty {
+      margin-bottom: 9px;
+
+      color: #5b50d6;
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       ASSIGNED LABEL
+    ====================================================== */
+
+    .mentor-assigned-label {
+      display: inline-block;
+
+      margin-top: 12px;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      background: #e9f7f0;
+
+      color: #37936b;
+
+      font-size: 8px;
+      font-weight: 800;
+
+      letter-spacing: .4px;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       MENTOR BUTTON
+    ====================================================== */
+
+    .mentor-button {
+      width: 100%;
+
+      margin-top: 15px;
+
+      padding: 10px 13px;
+
+      border: 0;
+
+      border-radius: 9px;
+
+      background: #f1efff;
+
+      color: #5b50d6;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      transition:
+        background .2s ease,
+        color .2s ease;
+    }
+
+    .mentor-button:hover {
+      background: #5b50d6;
+      color: #ffffff;
+    }
+
+    .mentor-card-selected .mentor-button {
+      background: #5b50d6;
+      color: #ffffff;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ====================================================== */
+
+    .empty-state {
+      grid-column: 1 / -1;
+
+      padding: 40px 20px;
+
+      text-align: center;
+
+      background: #ffffff;
+
+      border:
+        1px solid #e5e7ee;
+
+      border-radius: 16px;
+
+      color: #7c899e;
+
+      font-size: 12px;
+    }
+
+
+    /* =====================================================
+       TOAST
+    ====================================================== */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 25px;
+
+      transform:
+        translate(-50%, 20px);
+
+      padding: 12px 18px;
+
+      background: #17233f;
+      color: #ffffff;
+
+      border-radius: 10px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: .25s ease;
+
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+
+    /* =====================================================
+       MOBILE OVERLAY
+    ====================================================== */
+
+    .sidebar-overlay {
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(23, 35, 63, .35);
+
+      z-index: 900;
+    }
+
+    .sidebar-overlay.show {
+      display: block;
+    }
+
+
+    /* =====================================================
+       TABLET
+    ====================================================== */
+
+    @media (max-width: 1100px) {
+
+      .main-content {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
+      .mentor-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 760px) {
+
+      .sidebar {
+        width: 240px;
+
+        transform:
+          translateX(-100%);
+
+        transition:
+          transform .25s ease;
+      }
+
+      .sidebar.open {
+        transform:
+          translateX(0);
+      }
+
+      .main-content {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding:
+          0 18px 40px;
+      }
+
+      .topbar {
+        height: 68px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .mobile-brand {
+        display: block;
+
+        margin-left: 10px;
+        margin-right: auto;
+      }
+
+      .top-actions {
+        margin-left: 10px;
+      }
+
+      .user-chip small {
+        display: none;
+      }
+
+      .page-hero {
+        padding:
+          26px 22px;
+      }
+
+      .page-hero h1 {
+        font-size: 26px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+      .mentor-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .assigned-mentor-card {
+        align-items: flex-start;
+      }
+
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ====================================================== */
+
+    @media (max-width: 480px) {
+
+      .main-content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .page-hero {
+        padding:
+          24px 18px;
+      }
+
+      .page-hero h1 {
+        font-size: 23px;
+      }
+
+      .page-hero h1 br {
+        display: none;
+      }
+
+      .assigned-mentor-card {
+        flex-wrap: wrap;
+      }
+
+      .assigned-mentor-info {
+        width:
+          calc(100% - 70px);
+      }
+
+      .assigned-badge {
+        margin-left: 70px;
+      }
+
+      .user-chip span:last-child {
+        display: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       APP
+  ====================================================== -->
+
+  <div class="app-shell">
+
+
+    <!-- ===================================================
+         SIDEBAR
+    ==================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar">
+
+
+      <!-- BRAND -->
+
+      <a
+        class="brand side-brand"
+        href="dashboard.html">
+
+        <span class="brand-mark">
+          S
+        </span>
+
+        SkillBridge
+
+      </a>
+
+
+      <!-- NAVIGATION -->
+
+      <nav aria-label="Main navigation">
+
+
+        <p class="nav-label">
+          MENU
+        </p>
+
+
+        <a
+          class="nav-item"
+          href="dashboard.html">
+
+          <span>▦</span>
+
+          Dashboard
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="profile.html">
+
+          <span>◉</span>
+
+          Profile
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="courses.html">
+
+          <span>▤</span>
+
+          Courses
+
+        </a>
+
+
+        <a
+          class="nav-item active"
+          href="mentors.html">
+
+          <span>♙</span>
+
+          Mentors
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="targets.html">
+
+          <span>◎</span>
+
+          Targets
+
+        </a>
+
+
+        <a
+          class="nav-item"
+          href="goals.html">
+
+          <span>◷</span>
+
+          Short Term Goals
+
+        </a>
+
+
+        <p class="nav-label second">
+          ACCOUNT
+        </p>
+
+
+        <a
+          class="nav-item"
+          href="settings.html">
+
+          <span>⚙</span>
+
+          Settings
+
+        </a>
+
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MOBILE OVERLAY -->
+
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay">
+    </div>
+
+
+    <!-- ===================================================
+         MAIN
+    ==================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- =================================================
+           TOPBAR
+      ================================================== -->
+
+      <header class="topbar">
+
+
+        <button
+          class="menu-button"
+          id="menuButton"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false">
+
+          ☰
+
+        </button>
+
+
+        <div class="mobile-brand">
+          SkillBridge
+        </div>
+
+
+        <div class="top-actions">
+
+          <a
+            class="user-chip"
+            href="profile.html">
+
+
+            <span
+              class="avatar user-initial"
+              id="mentorPageAvatar">
+
+              S
+
+            </span>
+
+
+            <span>
+
+              <strong
+                class="user-name"
+                id="mentorPageUserName">
+
+                Student
+
+              </strong>
+
+
+              <small>
+                Career learner
+              </small>
+
+            </span>
+
+
+          </a>
+
+        </div>
+
+
+      </header>
+
+
+      <!-- =================================================
+           HERO
+      ================================================== -->
+
+      <section
+        class="page-hero mentor-hero">
+
+
+        <p class="eyebrow accent">
+          MENTOR NETWORK
+        </p>
+
+
+        <h1>
+
+          People who’ve walked
+          <br>
+
+          the
+          <span>
+            path before you.
+          </span>
+
+        </h1>
+
+
+        <p>
+
+          Connect with experienced professionals
+          for direction, feedback and confidence.
+
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <label
+          class="search-box"
+          for="mentorSearch">
+
+
+          <span>
+            ⌕
+          </span>
+
+
+          <input
+            id="mentorSearch"
+            type="search"
+            placeholder="Search by mentor name or speciality"
+            autocomplete="off">
+
+
+        </label>
+
+
+      </section>
+
+
+      <!-- =================================================
+           ASSIGNED MENTOR
+      ================================================== -->
+
+      <section
+        id="assignedMentorPanel"
+        class="assigned-panel">
+
+      </section>
+
+
+      <!-- =================================================
+           AVAILABLE MENTORS
+      ================================================== -->
+
+      <section
+        class="section-heading">
+
+
+        <div>
+
+          <p class="eyebrow">
+            AVAILABLE MENTORS
+          </p>
+
+
+          <h2>
+            Find your guide
+          </h2>
+
+        </div>
+
+
+        <!-- FILTER -->
+
+        <div class="filter-row">
+
+
+          <button
+            class="filter active"
+            data-specialty="all"
+            type="button">
+
+            All
+
+          </button>
+
+
+          <button
+            class="filter"
+            data-specialty="software"
+            type="button">
+
+            Software
+
+          </button>
+
+
+          <button
+            class="filter"
+            data-specialty="hardware"
+            type="button">
+
+            Hardware
+
+          </button>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- =================================================
+           MENTOR GRID
+      ================================================== -->
+
+      <section
+        class="mentor-grid"
+        id="mentorGrid">
+
+      </section>
+
+
+    </main>
+
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite">
+
+  </div>
+
+
+
+  <script>
+
+
+    /* =====================================================
+       STORAGE
+    ====================================================== */
+
+    const MENTOR_STORAGE_KEY =
+      "skillbridge_selected_mentor";
+
+    const CURRENT_USER_KEY =
+      "skillbridge_current_user";
+
+    const USER_STORAGE_KEY =
+      "skillbridgeUser";
+
+
+    /* =====================================================
+       MENTOR DATA
+    ====================================================== */
+
+    const MENTORS = [
+
+      /* SOFTWARE */
+
+      {
+        id: "riya-krishnan",
+        name: "Riya Krishnan",
+        initials: "RK",
+        specialty: "software",
+        specialtyName: "Full-stack development",
+        description:
+          "Guidance on frontend, backend development and building real-world projects.",
+        availability: "Available"
+      },
+
+      {
+        id: "priya-sharma",
+        name: "Priya Sharma",
+        initials: "PS",
+        specialty: "software",
+        specialtyName: "Web development",
+        description:
+          "Learn modern HTML, CSS, JavaScript and responsive web application development.",
+        availability: "Available"
+      },
+
+      {
+        id: "karthik-rao",
+        name: "Karthik Rao",
+        initials: "KR",
+        specialty: "software",
+        specialtyName: "Software engineering",
+        description:
+          "Practical guidance for software engineering, Git and application development.",
+        availability: "Available"
+      },
+
+      {
+        id: "ananya-menon",
+        name: "Ananya Menon",
+        initials: "AM",
+        specialty: "software",
+        specialtyName: "Frontend development",
+        description:
+          "Build modern interfaces using React, JavaScript and reusable UI components.",
+        availability: "Available"
+      },
+
+      {
+        id: "vikram-shah",
+        name: "Vikram Shah",
+        initials: "VS",
+        specialty: "software",
+        specialtyName: "Backend development",
+        description:
+          "Learn APIs, databases, server-side programming and scalable backend systems.",
+        availability: "Available"
+      },
+
+      {
+        id: "meera-nair",
+        name: "Meera Nair",
+        initials: "MN",
+        specialty: "software",
+        specialtyName: "AI & Machine Learning",
+        description:
+          "Guidance on machine learning, Python, model building and AI projects.",
+        availability: "Available"
+      },
+
+      {
+        id: "rahul-verma",
+        name: "Rahul Verma",
+        initials: "RV",
+        specialty: "software",
+        specialtyName: "Data Science",
+        description:
+          "Learn Python, data analysis, visualization and practical data science workflows.",
+        availability: "Available"
+      },
+
+      {
+        id: "divya-krishnan",
+        name: "Divya Krishnan",
+        initials: "DK",
+        specialty: "software",
+        specialtyName: "Cloud computing",
+        description:
+          "Explore cloud platforms, deployment, DevOps and scalable application hosting.",
+        availability: "Available"
+      },
+
+      {
+        id: "sanjay-kumar",
+        name: "Sanjay Kumar",
+        initials: "SK",
+        specialty: "software",
+        specialtyName: "Cybersecurity",
+        description:
+          "Learn security fundamentals, ethical hacking, web security and cyber awareness.",
+        availability: "Available"
+      },
+
+      {
+        id: "neha-gupta",
+        name: "Neha Gupta",
+        initials: "NG",
+        specialty: "software",
+        specialtyName: "Mobile app development",
+        description:
+          "Guidance for Android, cross-platform apps and mobile application projects.",
+        availability: "Available"
+      },
+
+
+      /* HARDWARE */
+
+      {
+        id: "arun-menon",
+        name: "Arun Menon",
+        initials: "AM",
+        specialty: "hardware",
+        specialtyName: "Embedded systems",
+        description:
+          "Learn embedded systems, microcontrollers and hardware project development.",
+        availability: "Available"
+      },
+
+      {
+        id: "meena-iyer",
+        name: "Meena Iyer",
+        initials: "MI",
+        specialty: "hardware",
+        specialtyName: "IoT & electronics",
+        description:
+          "Mentoring for IoT, electronics and connected device projects.",
+        availability: "Available"
+      },
+
+      {
+        id: "rohit-nair",
+        name: "Rohit Nair",
+        initials: "RN",
+        specialty: "hardware",
+        specialtyName: "Robotics",
+        description:
+          "Build robotics projects using sensors, controllers and automation techniques.",
+        availability: "Available"
+      },
+
+      {
+        id: "deepak-rajan",
+        name: "Deepak Rajan",
+        initials: "DR",
+        specialty: "hardware",
+        specialtyName: "VLSI design",
+        description:
+          "Learn digital design, VLSI concepts, Verilog and hardware architecture.",
+        availability: "Available"
+      },
+
+      {
+        id: "swetha-ravi",
+        name: "Swetha Ravi",
+        initials: "SR",
+        specialty: "hardware",
+        specialtyName: "Digital electronics",
+        description:
+          "Guidance on digital circuits, logic design and electronics fundamentals.",
+        availability: "Available"
+      },
+
+      {
+        id: "ashwin-kumar",
+        name: "Ashwin Kumar",
+        initials: "AK",
+        specialty: "hardware",
+        specialtyName: "Microcontrollers",
+        description:
+          "Learn Arduino, microcontrollers, sensors and hardware prototyping.",
+        availability: "Available"
+      },
+
+      {
+        id: "harish-babu",
+        name: "Harish Babu",
+        initials: "HB",
+        specialty: "hardware",
+        specialtyName: "Computer networks",
+        description:
+          "Understand networking hardware, protocols, routing and network configuration.",
+        availability: "Available"
+      },
+
+      {
+        id: "keerthana-jay",
+        name: "Keerthana Jay",
+        initials: "KJ",
+        specialty: "hardware",
+        specialtyName: "PCB design",
+        description:
+          "Learn circuit design, PCB layout, prototyping and electronics development.",
+        availability: "Available"
+      },
+
+      {
+        id: "mohan-das",
+        name: "Mohan Das",
+        initials: "MD",
+        specialty: "hardware",
+        specialtyName: "Automation systems",
+        description:
+          "Guidance on industrial automation, sensors, controllers and control systems.",
+        availability: "Available"
+      },
+
+      {
+        id: "lavanya-s",
+        name: "Lavanya S",
+        initials: "LS",
+        specialty: "hardware",
+        specialtyName: "IoT hardware",
+        description:
+          "Build smart devices using sensors, microcontrollers and connected hardware.",
+        availability: "Available"
+      }
+
+    ];
+
+
+    /* =====================================================
+       SAFE JSON
+    ====================================================== */
+
+    function readJSON(key) {
+
+      try {
+
+        const value =
+          localStorage.getItem(key);
+
+        if (!value) {
+          return null;
+        }
+
+        return JSON.parse(value);
+
+      } catch (error) {
+
+        console.error(
+          "Unable to read localStorage:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       CURRENT USER
+    ====================================================== */
+
+    function getCurrentUser() {
+
+      const currentUser =
+        readJSON(CURRENT_USER_KEY);
+
+      if (
+        currentUser &&
+        typeof currentUser === "object"
+      ) {
+
+        return currentUser;
+
+      }
+
+
+      const registeredUser =
+        readJSON(USER_STORAGE_KEY);
+
+      if (
+        registeredUser &&
+        typeof registeredUser === "object"
+      ) {
+
+        return registeredUser;
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* =====================================================
+       USER IDENTIFIER
+    ====================================================== */
+
+    function getCurrentUserIdentifier() {
+
+      const user =
+        getCurrentUser();
+
+      if (!user) {
+        return null;
+      }
+
+      return (
+        user.email ||
+        user.userEmail ||
+        user.username ||
+        user.id ||
+        null
+      );
+
+    }
+
+
+    /* =====================================================
+       USER-SPECIFIC MENTOR KEY
+    ====================================================== */
+
+    function getMentorStorageKey() {
+
+      const identifier =
+        getCurrentUserIdentifier();
+
+      if (!identifier) {
+        return MENTOR_STORAGE_KEY;
+      }
+
+      const safeIdentifier =
+        String(identifier)
+          .trim()
+          .toLowerCase()
+          .replace(
+            /[^a-z0-9]/g,
+            "_"
+          );
+
+      return (
+        MENTOR_STORAGE_KEY +
+        "_" +
+        safeIdentifier
+      );
+
+    }
+
+
+    /* =====================================================
+       GET SELECTED MENTOR
+    ====================================================== */
+
+    function getSelectedMentor() {
+
+      try {
+
+        const key =
+          getMentorStorageKey();
+
+        const saved =
+          localStorage.getItem(key);
+
+        if (!saved) {
+          return null;
+        }
+
+        const parsed =
+          JSON.parse(saved);
+
+        if (
+          !parsed ||
+          !parsed.id
+        ) {
+
+          return null;
+
+        }
+
+        return (
+          MENTORS.find(
+            function(mentor) {
+
+              return (
+                mentor.id ===
+                parsed.id
+              );
+
+            }
+          ) || null
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Unable to read selected mentor:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SELECT MENTOR
+    ====================================================== */
+
+    function selectMentor(mentor) {
+
+      if (!mentor) {
+        return;
+      }
+
+
+      try {
+
+        const key =
+          getMentorStorageKey();
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(mentor)
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Unable to save selected mentor:",
+          error
+        );
+
+        showToast(
+          "Unable to save mentor."
+        );
+
+        return;
+
+      }
+
+
+      renderAssignedMentor();
+
+      renderMentors();
+
+
+      showToast(
+        mentor.name +
+        " is now your assigned mentor ✓"
+      );
+
+    }
+
+
+    /* =====================================================
+       ASSIGNED MENTOR
+    ====================================================== */
+
+    function renderAssignedMentor() {
+
+      const panel =
+        document.getElementById(
+          "assignedMentorPanel"
+        );
+
+      if (!panel) {
+        return;
+      }
+
+
+      const mentor =
+        getSelectedMentor();
+
+
+      if (!mentor) {
+
+        panel.innerHTML = `
+
+          <div class="assigned-mentor-card">
+
+            <div class="assigned-mentor-avatar">
+              ?
+            </div>
+
+            <div class="assigned-mentor-info">
+
+              <span class="assigned-mentor-label">
+                Your assigned mentor
+              </span>
+
+              <h3>
+                No mentor selected yet
+              </h3>
+
+              <p>
+                Choose a mentor below to start
+                your guidance journey.
+              </p>
+
+            </div>
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      panel.innerHTML = `
+
+        <div class="assigned-mentor-card">
+
+          <div class="assigned-mentor-avatar">
+            ${mentor.initials}
+          </div>
+
+          <div class="assigned-mentor-info">
+
+            <span class="assigned-mentor-label">
+              Your assigned mentor
+            </span>
+
+            <h3>
+              ${mentor.name}
+            </h3>
+
+            <p>
+              ${mentor.specialtyName}
+            </p>
+
+          </div>
+
+          <span class="assigned-badge">
+            Assigned
+          </span>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =====================================================
+       RENDER MENTORS
+    ====================================================== */
+
+    function renderMentors() {
+
+      const grid =
+        document.getElementById(
+          "mentorGrid"
+        );
+
+      if (!grid) {
+        return;
+      }
+
+
+      const searchInput =
+        document.getElementById(
+          "mentorSearch"
+        );
+
+
+      const searchText =
+        searchInput
+          ? searchInput.value
+              .trim()
+              .toLowerCase()
+          : "";
+
+
+      const activeFilter =
+        document.querySelector(
+          ".filter.active"
+        );
+
+
+      const specialty =
+        activeFilter
+          ? activeFilter.dataset.specialty
+          : "all";
+
+
+      const selectedMentor =
+        getSelectedMentor();
+
+
+      const filteredMentors =
+        MENTORS.filter(
+          function(mentor) {
+
+
+            const matchesSpecialty =
+              specialty === "all" ||
+              mentor.specialty === specialty;
+
+
+            const searchableText =
+              (
+                mentor.name +
+                " " +
+                mentor.specialtyName +
+                " " +
+                mentor.description
+              )
+              .toLowerCase();
+
+
+            const matchesSearch =
+              !searchText ||
+              searchableText.includes(
+                searchText
+              );
+
+
+            return (
+              matchesSpecialty &&
+              matchesSearch
+            );
+
+          }
+        );
+
+
+      if (!filteredMentors.length) {
+
+        grid.innerHTML = `
+
+          <div class="empty-state">
+
+            No mentors found.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      grid.innerHTML =
+        filteredMentors
+          .map(
+            function(mentor) {
+
+
+              const isSelected =
+                selectedMentor &&
+                selectedMentor.id ===
+                  mentor.id;
+
+
+              return `
+
+                <article
+                  class="
+                    mentor-card
+                    ${isSelected
+                      ? "mentor-card-selected"
+                      : ""}
+                  "
+                  data-mentor-id="${mentor.id}">
+
+
+                  <div
+                    class="mentor-card-top">
+
+
+                    <span
+                      class="mentor-avatar">
+
+                      ${mentor.initials}
+
+                    </span>
+
+
+                    <span
+                      class="online-dot"
+                      title="Available">
+                    </span>
+
+
+                  </div>
+
+
+                  <h3>
+                    ${mentor.name}
+                  </h3>
+
+
+                  <p class="mentor-specialty">
+                    ${mentor.specialtyName}
+                  </p>
+
+
+                  <p>
+                    ${mentor.description}
+                  </p>
+
+
+                  ${
+                    isSelected
+                      ? `
+
+                        <span
+                          class="mentor-assigned-label">
+
+                          ✓ Your assigned mentor
+
+                        </span>
+
+                      `
+                      : ""
+                  }
+
+
+                  <button
+                    class="mentor-button"
+                    type="button"
+                    data-select-mentor="${mentor.id}">
+
+                    ${
+                      isSelected
+                        ? "Assigned ✓"
+                        : "Choose mentor →"
+                    }
+
+                  </button>
+
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
+
+
+      grid
+        .querySelectorAll(
+          "[data-select-mentor]"
+        )
+        .forEach(
+          function(button) {
+
+
+            button.addEventListener(
+              "click",
+              function() {
+
+
+                const mentorId =
+                  button.dataset.selectMentor;
+
+
+                const mentor =
+                  MENTORS.find(
+                    function(item) {
+
+                      return (
+                        item.id ===
+                        mentorId
+                      );
+
+                    }
+                  );
+
+
+                selectMentor(
+                  mentor
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ====================================================== */
+
+    const mentorSearch =
+      document.getElementById(
+        "mentorSearch"
+      );
+
+
+    if (mentorSearch) {
+
+      mentorSearch.addEventListener(
+        "input",
+        renderMentors
+      );
+
+    }
+
+
+    /* =====================================================
+       FILTER
+    ====================================================== */
+
+    document
+      .querySelectorAll(".filter")
+      .forEach(
+        function(button) {
+
+
+          button.addEventListener(
+            "click",
+            function() {
+
+
+              document
+                .querySelectorAll(
+                  ".filter"
+                )
+                .forEach(
+                  function(item) {
+
+                    item.classList.remove(
+                      "active"
+                    );
+
+                  }
+                );
+
+
+              button.classList.add(
+                "active"
+              );
+
+
+              renderMentors();
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       LOAD USER INFORMATION
+    ====================================================== */
+
+    function loadUserInformation() {
+
+      const user =
+        getCurrentUser();
+
+
+      const name =
+        user
+          ? (
+              user.name ||
+              user.fullName ||
+              user.username ||
+              "Student"
+            )
+          : "Student";
+
+
+      const cleanName =
+        String(name).trim();
+
+
+      const firstLetter =
+        cleanName
+          .charAt(0)
+          .toUpperCase();
+
+
+      const nameElement =
+        document.getElementById(
+          "mentorPageUserName"
+        );
+
+
+      const avatarElement =
+        document.getElementById(
+          "mentorPageAvatar"
+        );
+
+
+      if (nameElement) {
+
+        nameElement.textContent =
+          cleanName || "Student";
+
+      }
+
+
+      if (avatarElement) {
+
+        avatarElement.textContent =
+          firstLetter || "S";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       TOAST
+    ====================================================== */
+
+    let toastTimer = null;
+
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById(
+          "toast"
+        );
+
+
+      if (!toast) {
+        return;
+      }
+
+
+      toast.textContent =
+        message;
+
+
+      toast.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          function() {
+
+            toast.classList.remove(
+              "show"
+            );
+
+          },
+          2500
+        );
+
+    }
+
+
+    /* =====================================================
+       MOBILE SIDEBAR
+    ====================================================== */
+
+    const menuButton =
+      document.getElementById(
+        "menuButton"
+      );
+
+
+    const sidebar =
+      document.getElementById(
+        "sidebar"
+      );
+
+
+    const sidebarOverlay =
+      document.getElementById(
+        "sidebarOverlay"
+      );
+
+
+    function closeSidebar() {
+
+      if (sidebar) {
+
+        sidebar.classList.remove(
+          "open"
+        );
+
+      }
+
+
+      if (sidebarOverlay) {
+
+        sidebarOverlay.classList.remove(
+          "show"
+        );
+
+      }
+
+
+      if (menuButton) {
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+    }
+
+
+    if (
+      menuButton &&
+      sidebar
+    ) {
+
+      menuButton.addEventListener(
+        "click",
+        function() {
+
+
+          const isOpen =
+            sidebar.classList.toggle(
+              "open"
+            );
+
+
+          if (sidebarOverlay) {
+
+            sidebarOverlay.classList.toggle(
+              "show",
+              isOpen
+            );
+
+          }
+
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+              ? "true"
+              : "false"
+          );
+
+        }
+      );
+
+    }
+
+
+    if (sidebarOverlay) {
+
+      sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+      );
+
+    }
+
+
+    /* =====================================================
+       CLOSE SIDEBAR ON NAV CLICK
+    ====================================================== */
+
+    if (sidebar) {
+
+      sidebar
+        .querySelectorAll(
+          ".nav-item"
+        )
+        .forEach(
+          function(link) {
+
+
+            link.addEventListener(
+              "click",
+              closeSidebar
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =====================================================
+       STORAGE EVENT
+    ====================================================== */
+
+    window.addEventListener(
+      "storage",
+      function(event) {
+
+
+        if (
+          event.key ===
+          MENTOR_STORAGE_KEY ||
+          event.key ===
+          getMentorStorageKey()
+        ) {
+
+          renderAssignedMentor();
+
+          renderMentors();
+
+        }
+
+
+        if (
+          event.key ===
+          USER_STORAGE_KEY ||
+          event.key ===
+          CURRENT_USER_KEY
+        ) {
+
+          loadUserInformation();
+
+          renderAssignedMentor();
+
+          renderMentors();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       INITIALIZE
+    ====================================================== */
+
+    function initializePage() {
+
+      loadUserInformation();
+
+      renderAssignedMentor();
+
+      renderMentors();
+
+    }
+
+
+    initializePage();
+
+
+  </script>
+
+
+</body>
+
+</html>

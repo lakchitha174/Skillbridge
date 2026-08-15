@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Settings | SkillBridge</title><link rel="stylesheet" href="features.css"></head><body class="dashboard-page"><div class="app-shell"><aside class="sidebar" id="sidebar"><a class="brand side-brand" href="dashboard.html"><span class="brand-mark">S</span>SkillBridge</a><nav aria-label="Main navigation"><p class="nav-label">MENU</p><a class="nav-item" href="dashboard.html"><span>▦</span>Dashboard</a><a class="nav-item" href="profile.html"><span>◉</span>Profile</a><a class="nav-item" href="courses.html"><span>▤</span>Courses</a><a class="nav-item" href="mentors.html"><span>♙</span>Mentors</a><a class="nav-item" href="targets.html"><span>◎</span>Targets</a><a class="nav-item" href="goals.html"><span>◷</span>Short Term Goals</a><p class="nav-label second">ACCOUNT</p><a class="nav-item active" href="settings.html"><span>⚙</span>Settings</a></nav></aside><main class="main-content page-content"><header class="topbar"><button class="menu-button" id="menuButton" type="button" aria-label="Open navigation">☰</button><div class="mobile-brand">SkillBridge</div></header><section class="page-hero compact-hero"><p class="eyebrow accent">PREFERENCES</p><h1>Set up your <span>space.</span></h1><p>Control how SkillBridge supports your learning journey.</p></section><section class="settings-card"><div><h2>Learning reminders</h2><p>Receive a gentle reminder for your weekly goals.</p></div><label class="switch"><input id="reminderToggle" type="checkbox"><span></span></label></section><section class="settings-card"><div><h2>Mentor updates</h2><p>Get notified when a mentor responds or leaves feedback.</p></div><label class="switch"><input id="mentorToggle" type="checkbox"><span></span></label></section><section class="settings-card danger"><div><h2>Sign out of SkillBridge</h2><p>Your local learning data remains on this browser.</p></div><button id="logoutButton" class="secondary-button">Log out</button></section></main></div><div class="toast" id="toast" role="status"></div><script src="script.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings | SkillBridge</title>
+<link rel="stylesheet" href="features.css">
+</head>
+<body class="dashboard-page">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand side-brand" href="dashboard.html"><span class="brand-mark">S</span>SkillBridge</a>
+    <nav aria-label="Main navigation">
+      <p class="nav-label">MENU</p>
+      <a class="nav-item" href="dashboard.html"><span>▦</span>Dashboard</a>
+      <a class="nav-item" href="profile.html"><span>◉</span>Profile</a>
+      <a class="nav-item" href="courses.html"><span>▤</span>Courses</a>
+      <a class="nav-item" href="mentors.html"><span>♙</span>Mentors</a>
+      <a class="nav-item" href="targets.html"><span>◎</span>Targets</a>
+      <a class="nav-item" href="goals.html"><span>◷</span>Short Term Goals</a>
+      <p class="nav-label second">ACCOUNT</p>
+      <a class="nav-item active" href="settings.html"><span>⚙</span>Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content page-content">
+    <header class="topbar">
+      <button class="menu-button" id="menuButton" type="button" aria-label="Open navigation">☰</button>
+      <div class="mobile-brand">SkillBridge</div>
+    </header>
+    <section class="page-hero compact-hero">
+      <p class="eyebrow accent">PREFERENCES</p>
+      <h1>Set up your <span>space.</span></h1>
+      <p>Control how SkillBridge supports your learning journey.</p>
+    </section>
+    <section class="settings-card">
+      <div>
+        <h2>Learning reminders</h2>
+        <p>Receive a gentle reminder for your weekly goals.</p>
+      </div>
+      <label class="switch"><input id="reminderToggle" type="checkbox"><span></span></label>
+    </section>
+    <section class="settings-card">
+      <div>
+        <h2>Mentor updates</h2>
+        <p>Get notified when a mentor responds or leaves feedback.</p>
+      </div>
+      <label class="switch"><input id="mentorToggle" type="checkbox"><span></span></label>
+    </section>
+    <section class="settings-card danger">
+      <div>
+        <h2>Sign out of SkillBridge</h2>
+        <p>Your account data stays saved for next time you sign in — on this device or any other.</p>
+      </div>
+      <button id="logoutButton" class="secondary-button">Log out</button>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>

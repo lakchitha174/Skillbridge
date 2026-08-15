@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Profile | SkillBridge</title>
+
+  <link rel="stylesheet" href="features.css">
+</head>
+
+<body class="dashboard-page">
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <a class="brand side-brand" href="dashboard.html">
+        <span class="brand-mark">S</span>
+        SkillBridge
+      </a>
+
+      <nav aria-label="Main navigation">
+
+        <p class="nav-label">MENU</p>
+
+        <a class="nav-item" href="dashboard.html">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a class="nav-item active" href="profile.html">
+          <span>◉</span>
+          Profile
+        </a>
+
+        <a class="nav-item" href="courses.html">
+          <span>▤</span>
+          Courses
+        </a>
+
+        <a class="nav-item" href="mentors.html">
+          <span>♙</span>
+          Mentors
+        </a>
+
+        <a class="nav-item" href="targets.html">
+          <span>◎</span>
+          Targets
+        </a>
+
+        <a class="nav-item" href="goals.html">
+          <span>◷</span>
+          Short Term Goals
+        </a>
+
+        <p class="nav-label second">ACCOUNT</p>
+
+        <a class="nav-item" href="settings.html">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content page-content">
+
+      <!-- TOP BAR -->
+
+      <header class="topbar">
+
+        <button
+          class="menu-button"
+          id="menuButton"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false">
+          ☰
+        </button>
+
+        <div class="mobile-brand">
+          SkillBridge
+        </div>
+
+      </header>
+
+
+      <!-- =====================================================
+           PAGE HERO
+      ====================================================== -->
+
+      <section class="page-hero compact-hero">
+
+        <p class="eyebrow accent">
+          YOUR PROFILE
+        </p>
+
+        <h1>
+          Make your path <span>personal.</span>
+        </h1>
+
+        <p>
+          Keep your details and career interests current so your
+          guidance stays relevant.
+        </p>
+
+      </section>
+
+
+      <!-- =====================================================
+           PROFILE LAYOUT
+      ====================================================== -->
+
+      <section class="profile-layout">
+
+
+        <!-- =================================================
+             PROFILE SUMMARY
+        ================================================== -->
+
+        <aside class="profile-summary">
+
+          <span
+            class="profile-avatar user-initial"
+            id="profileAvatar">
+            S
+          </span>
+
+          <h2
+            class="user-name"
+            id="summaryName">
+            Student
+          </h2>
+
+          <p
+            class="user-email"
+            id="summaryEmail">
+            No email available
+          </p>
+
+          <span
+            class="path-tag"
+            id="profilePath">
+            Exploring pathways
+          </span>
+
+          <hr>
+
+          <p class="eyebrow">
+            CAREER READINESS
+          </p>
+
+          <strong
+            class="readiness-number"
+            id="profileReadiness">
+            0%
+          </strong>
+
+          <p>
+            Keep your streak going.
+          </p>
+
+        </aside>
+
+
+        <!-- =================================================
+             PROFILE FORM
+        ================================================== -->
+
+        <form
+          id="profileForm"
+          class="form-card"
+          novalidate>
+
+          <!-- FORM HEADER -->
+
+          <div class="section-heading compact">
+
+            <div>
+
+              <p class="eyebrow">
+                PERSONAL DETAILS
+              </p>
+
+              <h2>
+                About you
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               NAME + PHONE
+          ================================================== -->
+
+          <div class="two-fields">
+
+            <label>
+
+              Full name
+
+              <input
+                id="profileName"
+                name="profileName"
+                type="text"
+                required
+                minlength="2"
+                autocomplete="name"
+                placeholder="Enter your full name">
+
+            </label>
+
+
+            <label>
+
+              Phone number
+
+              <input
+                id="profilePhone"
+                name="profilePhone"
+                type="tel"
+                placeholder="Optional"
+                autocomplete="tel">
+
+            </label>
+
+          </div>
+
+
+          <!-- =================================================
+               COLLEGE
+          ================================================== -->
+
+          <label>
+
+            College / Institution
+
+            <input
+              id="profileCollege"
+              name="profileCollege"
+              type="text"
+              placeholder="Your institution"
+              autocomplete="organization">
+
+          </label>
+
+
+          <!-- =================================================
+               CAREER FOCUS
+          ================================================== -->
+
+          <label>
+
+            Career focus
+
+            <select
+              id="profileFocus"
+              name="profileFocus">
+
+              <option value="">
+                Choose a focus
+              </option>
+
+              <option value="Software development">
+                Software development
+              </option>
+
+              <option value="Hardware & embedded systems">
+                Hardware & embedded systems
+              </option>
+
+              <option value="Data & analytics">
+                Data & analytics
+              </option>
+
+              <option value="Design & product">
+                Design & product
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <!-- =================================================
+               BIO
+          ================================================== -->
+
+          <label>
+
+            Short introduction
+
+            <textarea
+              id="profileBio"
+              name="profileBio"
+              rows="4"
+              placeholder="Tell mentors about your interests and career goals."></textarea>
+
+          </label>
+
+
+          <!-- MESSAGE -->
+
+          <p
+            id="profileMessage"
+            class="form-message"
+            role="alert"
+            aria-live="polite">
+          </p>
+
+
+          <!-- SAVE -->
+
+          <button
+            class="primary-button save-button"
+            type="submit">
+
+            Save profile
+
+            <span>→</span>
+
+          </button>
+
+        </form>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite">
+  </div>
+
+
+  <!-- =====================================================
+       MAIN SCRIPT
+       
+       IMPORTANT:
+       Use ONLY script.js here.
+       Do not add another profile storage script.
+  ====================================================== -->
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

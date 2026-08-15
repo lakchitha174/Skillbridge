@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="SkillBridge student career readiness platform">
+
+  <title>Sign in | SkillBridge</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+  <main class="auth-shell">
+
+
+    <!-- ===================================================
+         BRAND PANEL
+    ==================================================== -->
+
+    <section
+      class="brand-panel"
+      aria-label="SkillBridge introduction">
+
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="SkillBridge home">
+
+        <span class="brand-mark">
+          S
+        </span>
+
+        SkillBridge
+
+      </a>
+
+
+      <div class="brand-copy">
+
+        <p class="eyebrow">
+          YOUR CAREER, CONNECTED
+        </p>
+
+
+        <h1>
+
+          Build skills.
+
+          <br>
+
+          <em>
+            Reach
+          </em>
+
+          further.
+
+        </h1>
+
+
+        <p>
+
+          One calm space to measure your
+          readiness, connect with mentors,
+          and make your next career move count.
+
+        </p>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span class="stat-icon">
+          ↗
+        </span>
+
+        <div>
+
+          <strong>
+            87%
+          </strong>
+
+          <small>
+            of learners improved their readiness
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LOGIN PANEL
+    ==================================================== -->
+
+    <section class="form-panel">
+
+      <div class="form-wrap">
+
+
+        <p class="eyebrow accent">
+          WELCOME BACK
+        </p>
+
+
+        <h2>
+          Sign in to SkillBridge
+        </h2>
+
+
+        <p class="muted">
+          Continue building a career you're proud of.
+        </p>
+
+
+        <form
+          id="loginForm"
+          novalidate>
+
+
+          <!-- EMAIL -->
+
+          <label for="loginEmail">
+            Email address
+          </label>
+
+          <input
+            id="loginEmail"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required>
+
+
+          <!-- PASSWORD -->
+
+          <label for="loginPassword">
+            Password
+          </label>
+
+
+          <div class="password-field">
+
+            <input
+              id="loginPassword"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required>
+
+
+            <button
+              class="visibility-toggle"
+              id="loginPasswordToggle"
+              type="button"
+              aria-label="Show password"
+              aria-pressed="false">
+
+              Show
+
+            </button>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <p
+            id="formMessage"
+            class="form-message"
+            role="alert"
+            aria-live="polite">
+          </p>
+
+
+          <!-- LOGIN -->
+
+          <button
+            class="primary-button"
+            type="submit">
+
+            Sign in
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+
+        </form>
+
+
+        <p class="auth-switch">
+
+          New to SkillBridge?
+
+          <a href="register.html">
+            Create an account
+          </a>
+
+        </p>
+
+
+        <p class="demo-note">
+
+          First time here?
+          Register to create your local demo account.
+
+        </p>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       LOGIN SCRIPT
+  ====================================================== -->
+
+  <script>
+/* =====================================================
+   SKILLBRIDGE LOGIN
+   ===================================================== */
+
+const USERS_KEY = "skillbridge_users";
+const SESSION_KEY = "skillbridge_session";
+
+const loginForm = document.getElementById("loginForm");
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const formMessage = document.getElementById("formMessage");
+
+
+function showMessage(message, type) {
+  if (!formMessage) return;
+
+  formMessage.textContent = message;
+  formMessage.className = "form-message " + type;
+}
+
+
+/* =====================================================
+   READ USERS
+===================================================== */
+
+function getUsers() {
+  try {
+    const data = localStorage.getItem(USERS_KEY);
+
+    if (!data) {
+      return {};
+    }
+
+    const users = JSON.parse(data);
+
+    if (!users || typeof users !== "object") {
+      return {};
+    }
+
+    return users;
+
+  } catch (error) {
+
+    console.error("Unable to read users:", error);
+
+    return {};
+  }
+}
+
+
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
+
+const visibilityButton =
+  document.querySelector(".visibility-toggle");
+
+if (visibilityButton) {
+
+  visibilityButton.addEventListener("click", function () {
+
+    const isPassword =
+      loginPassword.type === "password";
+
+    loginPassword.type =
+      isPassword ? "text" : "password";
+
+    visibilityButton.textContent =
+      isPassword ? "Hide" : "Show";
+
+    visibilityButton.setAttribute(
+      "aria-label",
+      isPassword ? "Hide password" : "Show password"
+    );
+
+    visibilityButton.setAttribute(
+      "aria-pressed",
+      isPassword ? "true" : "false"
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+if (loginForm) {
+
+  loginForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const email =
+      loginEmail.value.trim().toLowerCase();
+
+    const password =
+      loginPassword.value;
+
+
+    /* VALIDATE */
+
+    if (!email) {
+
+      showMessage(
+        "Please enter your email address.",
+        "error"
+      );
+
+      loginEmail.focus();
+      return;
+    }
+
+
+    if (!loginEmail.checkValidity()) {
+
+      showMessage(
+        "Please enter a valid email address.",
+        "error"
+      );
+
+      loginEmail.focus();
+      return;
+    }
+
+
+    if (!password) {
+
+      showMessage(
+        "Please enter your password.",
+        "error"
+      );
+
+      loginPassword.focus();
+      return;
+    }
+
+
+    /* GET USERS */
+
+    const users = getUsers();
+
+    const user = users[email];
+
+
+    /* USER NOT FOUND */
+
+    if (!user) {
+
+      showMessage(
+        "Account not found. Please register first.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* WRONG PASSWORD */
+
+    if (user.password !== password) {
+
+      showMessage(
+        "Incorrect password.",
+        "error"
+      );
+
+      loginPassword.focus();
+      return;
+    }
+
+
+    /* =================================================
+       CREATE CURRENT SESSION
+    ================================================== */
+
+    const session = {
+
+      email: user.email,
+
+      loginAt:
+        new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify(session)
+    );
+
+
+    /* =================================================
+       IMPORTANT
+
+       Create a separate profile for this user.
+       Profile data is NOT shared between users.
+    ================================================== */
+
+    const profileKey =
+      "skillbridge_profile_" + user.email;
+
+
+    if (!localStorage.getItem(profileKey)) {
+
+      const emptyProfile = {
+
+        name: user.name,
+
+        email: user.email,
+
+        phone: "",
+
+        college: "",
+
+        focus: "",
+
+        bio: ""
+
+      };
+
+
+      localStorage.setItem(
+        profileKey,
+        JSON.stringify(emptyProfile)
+      );
+
+    }
+
+
+    showMessage(
+      "Login successful! Redirecting...",
+      "success"
+    );
+
+
+    setTimeout(function () {
+
+      window.location.href =
+        "dashboard.html";
+
+    }, 500);
+
+  });
+
+}
+</script>
+
+
+</body>
+
+</html>

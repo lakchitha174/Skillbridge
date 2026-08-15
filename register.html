@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Create your SkillBridge account">
+
+  <title>Create account | SkillBridge</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="auth-page">
+
+  <main class="auth-shell register-shell">
+
+    <!-- =====================================================
+         BRAND PANEL
+    ====================================================== -->
+
+    <section
+      class="brand-panel"
+      aria-label="SkillBridge introduction">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="SkillBridge home">
+
+        <span class="brand-mark">S</span>
+
+        SkillBridge
+
+      </a>
+
+
+      <div class="brand-copy">
+
+        <p class="eyebrow">
+          START YOUR JOURNEY
+        </p>
+
+        <h1>
+          Your potential<br>
+          has a <em>path.</em>
+        </h1>
+
+        <p>
+          Join a supportive learning space designed to move you
+          from ambition to opportunity.
+        </p>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span class="stat-icon">
+          ✦
+        </span>
+
+        <div>
+
+          <strong>
+            1:1
+          </strong>
+
+          <small>
+            mentor guidance when you need it
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         REGISTER FORM
+    ====================================================== -->
+
+    <section class="form-panel">
+
+      <div class="form-wrap">
+
+        <p class="eyebrow accent">
+          CREATE ACCOUNT
+        </p>
+
+        <h2>
+          Begin with SkillBridge
+        </h2>
+
+        <p class="muted">
+          A few details and you're ready to grow.
+        </p>
+
+
+        <form
+          id="registerForm"
+          novalidate>
+
+
+          <!-- FULL NAME -->
+
+          <label for="registerName">
+            Full name
+          </label>
+
+          <input
+            id="registerName"
+            name="name"
+            type="text"
+            autocomplete="name"
+            placeholder="Your full name"
+            required
+            minlength="2">
+
+
+          <!-- EMAIL -->
+
+          <label for="registerEmail">
+            Email address
+          </label>
+
+          <input
+            id="registerEmail"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required>
+
+
+          <!-- PASSWORD -->
+
+          <label for="registerPassword">
+            Create password
+          </label>
+
+          <div class="password-field">
+
+            <input
+              id="registerPassword"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              placeholder="At least 6 characters"
+              required
+              minlength="6">
+
+            <button
+              class="visibility-toggle"
+              type="button"
+              aria-label="Show password"
+              aria-pressed="false"
+              data-target="registerPassword">
+
+              Show
+
+            </button>
+
+          </div>
+
+
+          <!-- CONFIRM PASSWORD -->
+
+          <label for="confirmPassword">
+            Confirm password
+          </label>
+
+          <div class="password-field">
+
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Re-enter your password"
+              required>
+
+            <button
+              class="visibility-toggle"
+              type="button"
+              aria-label="Show password"
+              aria-pressed="false"
+              data-target="confirmPassword">
+
+              Show
+
+            </button>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <p
+            id="formMessage"
+            class="form-message"
+            role="alert"
+            aria-live="polite">
+          </p>
+
+
+          <!-- SUBMIT -->
+
+          <button
+            class="primary-button"
+            type="submit">
+
+            Create my account
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </form>
+
+
+        <p class="auth-switch">
+
+          Already have an account?
+
+          <a href="index.html">
+            Sign in
+          </a>
+
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       REGISTER SCRIPT
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       STORAGE
+    ===================================================== */
+
+    const USERS_KEY =
+      "skillbridge_users";
+
+    const SESSION_KEY =
+      "skillbridge_session";
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const registerForm =
+      document.getElementById("registerForm");
+
+    const registerName =
+      document.getElementById("registerName");
+
+    const registerEmail =
+      document.getElementById("registerEmail");
+
+    const registerPassword =
+      document.getElementById("registerPassword");
+
+    const confirmPassword =
+      document.getElementById("confirmPassword");
+
+    const formMessage =
+      document.getElementById("formMessage");
+
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
+
+    function showMessage(message, type) {
+
+      formMessage.textContent =
+        message;
+
+      formMessage.className =
+        "form-message " + type;
+
+    }
+
+
+    /* =====================================================
+       PASSWORD SHOW / HIDE
+    ===================================================== */
+
+    document
+      .querySelectorAll(".visibility-toggle")
+      .forEach(function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            const target =
+              document.getElementById(
+                button.dataset.target
+              );
+
+            if (!target) {
+              return;
+            }
+
+            const isPassword =
+              target.type === "password";
+
+            target.type =
+              isPassword
+                ? "text"
+                : "password";
+
+            button.textContent =
+              isPassword
+                ? "Hide"
+                : "Show";
+
+            button.setAttribute(
+              "aria-label",
+              isPassword
+                ? "Hide password"
+                : "Show password"
+            );
+
+            button.setAttribute(
+              "aria-pressed",
+              isPassword
+                ? "true"
+                : "false"
+            );
+
+          }
+        );
+
+      });
+
+
+    /* =====================================================
+       GET ALL USERS
+    ===================================================== */
+
+    function getUsers() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            USERS_KEY
+          );
+
+        if (!stored) {
+          return {};
+        }
+
+        const users =
+          JSON.parse(stored);
+
+        if (
+          !users ||
+          typeof users !== "object" ||
+          Array.isArray(users)
+        ) {
+          return {};
+        }
+
+        return users;
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "Unable to read users:",
+          error
+        );
+
+        return {};
+
+      }
+
+    }
+
+
+    /* =====================================================
+       REGISTER
+    ===================================================== */
+
+    registerForm.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+          registerName.value.trim();
+
+        const email =
+          registerEmail.value
+            .trim()
+            .toLowerCase();
+
+        const password =
+          registerPassword.value;
+
+        const confirm =
+          confirmPassword.value;
+
+
+        /* NAME */
+
+        if (name.length < 2) {
+
+          showMessage(
+            "Please enter your full name.",
+            "error"
+          );
+
+          registerName.focus();
+
+          return;
+
+        }
+
+
+        /* EMAIL */
+
+        if (!registerEmail.checkValidity()) {
+
+          showMessage(
+            "Please enter a valid email address.",
+            "error"
+          );
+
+          registerEmail.focus();
+
+          return;
+
+        }
+
+
+        /* PASSWORD */
+
+        if (password.length < 6) {
+
+          showMessage(
+            "Password must be at least 6 characters.",
+            "error"
+          );
+
+          registerPassword.focus();
+
+          return;
+
+        }
+
+
+        /* CONFIRM PASSWORD */
+
+        if (password !== confirm) {
+
+          showMessage(
+            "Passwords do not match.",
+            "error"
+          );
+
+          confirmPassword.focus();
+
+          return;
+
+        }
+
+
+        /* =================================================
+           GET EXISTING USERS
+        ================================================= */
+
+        const users =
+          getUsers();
+
+
+        /* =================================================
+           CHECK DUPLICATE EMAIL
+        ================================================= */
+
+        if (users[email]) {
+
+          showMessage(
+            "An account with this email already exists. Please sign in.",
+            "error"
+          );
+
+          registerEmail.focus();
+
+          return;
+
+        }
+
+
+        /* =================================================
+           CREATE COMPLETELY FRESH USER
+        ================================================= */
+
+        users[email] = {
+
+          name: name,
+
+          email: email,
+
+          password: password,
+
+          registeredAt:
+            new Date().toISOString(),
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC PROFILE
+          ----------------------------------------------- */
+
+          profile: {
+
+            phone: "",
+
+            college: "",
+
+            focus: "",
+
+            bio: ""
+
+          },
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC COURSE
+          ----------------------------------------------- */
+
+          course: null,
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC MENTOR
+          ----------------------------------------------- */
+
+          mentor: null,
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC TARGET
+          ----------------------------------------------- */
+
+          target: null,
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC GOALS
+          ----------------------------------------------- */
+
+          goals: [],
+
+
+          /* -----------------------------------------------
+             USER-SPECIFIC SETTINGS
+          ----------------------------------------------- */
+
+          preferences: {
+
+            reminder: false,
+
+            mentor: true
+
+          }
+
+        };
+
+
+        /* =================================================
+           SAVE ALL USERS
+        ================================================= */
+
+        try {
+
+          localStorage.setItem(
+            USERS_KEY,
+            JSON.stringify(users)
+          );
+
+        }
+
+        catch(error) {
+
+          console.error(error);
+
+          showMessage(
+            "Unable to create account. Please try again.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /* =================================================
+           VERY IMPORTANT
+
+           New user is NOT logged in automatically.
+
+           Remove old session so the new account must
+           login from index.html.
+        ================================================= */
+
+        localStorage.removeItem(
+          SESSION_KEY
+        );
+
+
+        /* =================================================
+           SUCCESS
+        ================================================= */
+
+        showMessage(
+          "Account created successfully! Redirecting to sign in...",
+          "success"
+        );
+
+
+        setTimeout(
+          function() {
+
+            window.location.href =
+              "index.html";
+
+          },
+          1000
+        );
+
+      }
+    );
+
+  </script>
+  <script src="script.js"></script>
+
+</body>
+
+</html>
